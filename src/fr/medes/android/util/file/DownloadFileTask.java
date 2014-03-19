@@ -9,15 +9,14 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import android.os.AsyncTask;
-
 import fr.medes.android.os.BaseAsyncTask;
 
 /**
  * An {@link AsyncTask} to download a file at a given URL.
  * <p/>
- * When calling {@link AsyncTask#execute(Object...)}, the first parameter must be the URL of the file to dosnload, the second
- * parameter must the destination of the file on the device. Make all the directories containing the file exist before calling
- * this method.
+ * When calling {@link AsyncTask#execute(Object...)}, the first parameter must be the URL of the file to dosnload, the
+ * second parameter must the destination of the file on the device. Make all the directories containing the file exist
+ * before calling this method.
  * 
  * @author Medes-IMPS
  * 

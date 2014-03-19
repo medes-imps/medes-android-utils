@@ -12,14 +12,8 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.widget.TextView;
+import fr.medes.android.R;
 
-/**
- * A beautiful progress dialog which access protected or private field from parent using reflection. This allows us to use it with
- * our own format.
- * 
- * @author Medes-IMPS
- * 
- */
 public class MyProgressDialog extends ProgressDialog {
 
 	private Formatter mFormatter;
@@ -30,7 +24,7 @@ public class MyProgressDialog extends ProgressDialog {
 	private NumberFormat mProgressPercentFormat;
 
 	public MyProgressDialog(Context context) {
-		super(context);
+		this(context, R.style.Theme_Dialog_Alert);
 	}
 
 	public MyProgressDialog(Context context, int theme) {

@@ -255,7 +255,8 @@ public class MarketApp implements Parcelable {
 	public static class Parser {
 
 		/**
-		 * Try to extract an application from a given file. The application has to be described using an XML description.
+		 * Try to extract an application from a given file. The application has to be described using an XML
+		 * description.
 		 * 
 		 * @param is The input stream
 		 * @return The extracted application

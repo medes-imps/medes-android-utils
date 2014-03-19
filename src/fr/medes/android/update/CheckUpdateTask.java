@@ -4,14 +4,14 @@ import java.io.InputStream;
 import java.net.URL;
 
 import android.os.AsyncTask;
-
 import fr.medes.android.os.BaseAsyncTask;
 
 /**
- * Download application information from a compatible server given the server address and the application package name to explore.
+ * Download application information from a compatible server given the server address and the application package name
+ * to explore.
  * <p/>
- * When calling the {@link AsyncTask#execute(Object...)} method the first parameter must be the URL to the server, the second
- * parameter should be the package name of the application to look for.
+ * When calling the {@link AsyncTask#execute(Object...)} method the first parameter must be the URL to the server, the
+ * second parameter should be the package name of the application to look for.
  * 
  * @author Medes-IMPS
  * 

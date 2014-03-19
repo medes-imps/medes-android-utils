@@ -9,5 +9,21 @@
     <string name="aml__sample_update_app_title">"Loading&#8230;"</string>
     <string name="aml__sample_update_app_message">"Downloading updates"</string>
     <string name="aml__sample_update_server_title">"Server Update URL"</string>
-    
+
+    <!-- Format Helper -->
+    <string name="aml__location_format">"Lat %1$.3f ; Lon %2$.3f"</string>
+
+    <!-- Date Time Picker Dialog -->
+    <string name="aml__switchDateTime">"Switch to date/time"</string>
+
+    <!-- Geo Picker Dialog -->
+    <string name="aml__dialog_geopicker_title">"Coordinates"</string>
+    <string name="aml__latitude">"Latitude"</string>
+    <string name="aml__longitude">"Longitude"</string>
+    <string name="aml__geo_format">"Decimal"</string>
+    <string name="aml__east">"East"</string>
+    <string name="aml__west">"West"</string>
+    <string name="aml__north">"North"</string>
+    <string name="aml__south">"South"</string>
+
 </resources>
