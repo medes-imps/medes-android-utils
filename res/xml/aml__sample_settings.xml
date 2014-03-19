@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="@string/aml__sample_update_parameters" >
+        <fr.medes.android.preference.MyEditTextPreference
+            android:inputType="textUri"
+            android:key="updateServer"
+            android:title="@string/aml__sample_update_server_title" />
+
+        <Preference
+            android:enabled="false"
+            android:key="updateAvailable"
+            android:summary="@string/aml__sample_update_available_summary_disabled"
+            android:title="@string/aml__sample_update_available_title" >
+        </Preference>
+    </PreferenceCategory>
+
+</PreferenceScreen>

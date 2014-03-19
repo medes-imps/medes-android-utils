@@ -1,0 +1,13 @@
+<resources>
+
+    <string name="aml__sample_update_check">Check for updates</string>
+    <string name="aml__sample_update_install">Install updates</string>
+    <string name="aml__sample_update_parameters">"Update parameters"</string>
+    <string name="aml__sample_update_available_title">"Application updates"</string>
+    <string name="aml__sample_update_available_summary_enabled">"Update available"</string>
+    <string name="aml__sample_update_available_summary_disabled">"The application is up to date"</string>
+    <string name="aml__sample_update_app_title">"Loading&#8230;"</string>
+    <string name="aml__sample_update_app_message">"Downloading updates"</string>
+    <string name="aml__sample_update_server_title">"Server Update URL"</string>
+    
+</resources>

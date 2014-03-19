@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- QuickAction related attributes -->
+    <attr name="quickActionBarStyle" format="reference" />
+    <attr name="quickActionBarItemStyle" format="reference" />
+    <attr name="quickActionGridStyle" format="reference" />
+    <attr name="quickActionGridItemStyle" format="reference" />
+
+</resources>
