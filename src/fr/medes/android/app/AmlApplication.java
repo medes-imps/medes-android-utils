@@ -7,6 +7,4 @@ abstract public class AmlApplication extends Application {
 
 	abstract public AmlOpenHelper getOpenHelper();
 
-	abstract public Class<?> getHomeActivityClass();
-
 }
