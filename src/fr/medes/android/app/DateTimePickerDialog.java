@@ -21,8 +21,8 @@ import android.widget.TimePicker;
 import android.widget.TimePicker.OnTimeChangedListener;
 import fr.medes.android.R;
 
-public class DateTimePickerDialog extends AlertDialog implements OnClickListener, OnCheckedChangeListener,
-		OnDateChangedListener, OnTimeChangedListener {
+public class DateTimePickerDialog extends AlertDialog implements OnClickListener, OnCheckedChangeListener, OnDateChangedListener,
+		OnTimeChangedListener {
 
 	private static final String HOUR = "hour";
 	private static final String MINUTE = "minute";
@@ -44,10 +44,13 @@ public class DateTimePickerDialog extends AlertDialog implements OnClickListener
 	public interface OnDateTimeSetListener {
 
 		/**
-		 * @param view The view associated with this listener.
+		 * @param datePicker The date view associated with this listener.
+		 * @param timePicker The time view associated with this listener.
 		 * @param year The year that was set.
 		 * @param monthOfYear The month that was set (0-11) for compatibility with {@link java.util.Calendar}.
 		 * @param dayOfMonth The day of the month that was set.
+		 * @param hourOfDay The hour that was set.
+		 * @param minute The minute that was set.
 		 */
 		void onDateTimeSet(DatePicker datePicker, TimePicker timePicker, int year, int monthOfYear, int dayOfMonth,
 				int hourOfDay, int minute);
@@ -59,11 +62,13 @@ public class DateTimePickerDialog extends AlertDialog implements OnClickListener
 	 * @param year The initial year of the dialog.
 	 * @param monthOfYear The initial month of the dialog.
 	 * @param dayOfMonth The initial day of the dialog.
+	 * @param hourOfDay The initial hour of the dialog.
+	 * @param minute The initial minute of the dialog.
+	 * @param is24HourView Whether this is a 24 hour view, or AM/PM.
 	 */
-	public DateTimePickerDialog(Context context, OnDateTimeSetListener callBack, int year, int monthOfYear,
-			int dayOfMonth, int hourOfDay, int minute, boolean is24HourView) {
-		this(context, R.style.Theme_Dialog_Alert, callBack, year, monthOfYear, dayOfMonth, hourOfDay, minute,
-				is24HourView);
+	public DateTimePickerDialog(Context context, OnDateTimeSetListener callBack, int year, int monthOfYear, int dayOfMonth,
+			int hourOfDay, int minute, boolean is24HourView) {
+		this(context, 0, callBack, year, monthOfYear, dayOfMonth, hourOfDay, minute, is24HourView);
 	}
 
 	/**
@@ -73,6 +78,9 @@ public class DateTimePickerDialog extends AlertDialog implements OnClickListener
 	 * @param year The initial year of the dialog.
 	 * @param monthOfYear The initial month of the dialog.
 	 * @param dayOfMonth The initial day of the dialog.
+	 * @param hourOfDay The initial hour of the dialog.
+	 * @param minute The initial minute of the dialog.
+	 * @param is24HourView Whether this is a 24 hour view, or AM/PM.
 	 */
 	public DateTimePickerDialog(Context context, int theme, OnDateTimeSetListener callBack, int year, int monthOfYear,
 			int dayOfMonth, int hourOfDay, int minute, boolean is24HourView) {
@@ -85,7 +93,6 @@ public class DateTimePickerDialog extends AlertDialog implements OnClickListener
 		updateTitle(year, monthOfYear, dayOfMonth, hourOfDay, minute);
 
 		setButton(BUTTON_POSITIVE, context.getText(android.R.string.ok), this);
-		setButton(BUTTON_NEGATIVE, context.getText(android.R.string.cancel), this);
 		setIcon(R.drawable.aml__ic_dialog_time);
 
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -120,12 +127,7 @@ public class DateTimePickerDialog extends AlertDialog implements OnClickListener
 
 	@Override
 	public void onClick(DialogInterface dialog, int which) {
-		if (which == BUTTON_POSITIVE && mCallBack != null) {
-			mDatePicker.clearFocus();
-			mTimePicker.clearFocus();
-			mCallBack.onDateTimeSet(mDatePicker, mTimePicker, mDatePicker.getYear(), mDatePicker.getMonth(),
-					mDatePicker.getDayOfMonth(), mTimePicker.getCurrentHour(), mTimePicker.getCurrentMinute());
-		}
+		tryNotifyDateTimeSet();
 	}
 
 	@Override
@@ -152,6 +154,19 @@ public class DateTimePickerDialog extends AlertDialog implements OnClickListener
 	private void updatePickers(boolean isChecked) {
 		mDatePicker.setVisibility(isChecked ? View.VISIBLE : View.GONE);
 		mTimePicker.setVisibility(isChecked ? View.GONE : View.VISIBLE);
+	}
+
+	private void tryNotifyDateTimeSet() {
+		mDatePicker.clearFocus();
+		mTimePicker.clearFocus();
+		mCallBack.onDateTimeSet(mDatePicker, mTimePicker, mDatePicker.getYear(), mDatePicker.getMonth(),
+				mDatePicker.getDayOfMonth(), mTimePicker.getCurrentHour(), mTimePicker.getCurrentMinute());
+	}
+
+	@Override
+	protected void onStop() {
+		tryNotifyDateTimeSet();
+		super.onStop();
 	}
 
 	private void updateTitle(int year, int month, int day, int hour, int minute) {

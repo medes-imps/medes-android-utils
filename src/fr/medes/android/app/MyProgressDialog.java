@@ -12,7 +12,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.widget.TextView;
-import fr.medes.android.R;
 
 public class MyProgressDialog extends ProgressDialog {
 
@@ -24,7 +23,7 @@ public class MyProgressDialog extends ProgressDialog {
 	private NumberFormat mProgressPercentFormat;
 
 	public MyProgressDialog(Context context) {
-		this(context, R.style.Theme_Dialog_Alert);
+		this(context, 0);
 	}
 
 	public MyProgressDialog(Context context, int theme) {
