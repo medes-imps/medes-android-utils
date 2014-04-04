@@ -1,0 +1,29 @@
+<resources>
+
+    <string name="aml__sample_update_check">Vérifier les mises à jour</string>
+    <string name="aml__sample_update_install">Installer les mises à jour</string>
+    <string name="aml__sample_update_parameters">Mises à jour</string>
+    <string name="aml__sample_update_available_title">Mises à jour de l\'application</string>
+    <string name="aml__sample_update_available_summary_enabled">Mise à jour disponible</string>
+    <string name="aml__sample_update_available_summary_disabled">L\'application est à jour</string>
+    <string name="aml__sample_update_app_title">Chargement&#8230;</string>
+    <string name="aml__sample_update_app_message">Téléchargement des mises à jour</string>
+    <string name="aml__sample_update_server_title">Server de mises à jour</string>
+
+    <!-- Format Helper -->
+    <string name="aml__location_format">Lat %1$.3f ; Lon %2$.3f</string>
+
+    <!-- Date Time Picker Dialog -->
+    <string name="aml__switchDateTime">Changer la date/l\'heure</string>
+
+    <!-- Geo Picker Dialog -->
+    <string name="aml__dialog_geopicker_title">Coordonnées</string>
+    <string name="aml__latitude">Latitude</string>
+    <string name="aml__longitude">Longitude</string>
+    <string name="aml__geo_format">Décimal</string>
+    <string name="aml__east">Est</string>
+    <string name="aml__west">Ouest</string>
+    <string name="aml__north">Nord</string>
+    <string name="aml__south">Sud</string>
+
+</resources>
