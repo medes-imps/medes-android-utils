@@ -5,8 +5,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import android.net.Uri;
-
 public class FieldMapper implements Mapper {
 
 	private Mapper mapper;
@@ -45,16 +43,6 @@ public class FieldMapper implements Mapper {
 	@Override
 	public String serializedMember(Class<?> type, String memberName) {
 		return fieldToAliasMap.get(memberName);
-	}
-
-	@Override
-	public Uri realUri(String elementName) {
-		return mapper.realUri(elementName);
-	}
-
-	@Override
-	public String serializeUri(Uri uri) {
-		return mapper.serializeUri(uri);
 	}
 
 	@Override

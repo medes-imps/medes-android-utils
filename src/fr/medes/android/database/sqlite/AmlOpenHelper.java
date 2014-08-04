@@ -19,5 +19,5 @@ abstract public class AmlOpenHelper extends SQLiteOpenHelper {
 		return mContext;
 	}
 
-	abstract public Cursor query(Uri uri);
+	abstract public <T extends Cursor> T query(Uri uri);
 }

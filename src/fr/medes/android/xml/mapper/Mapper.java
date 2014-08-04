@@ -1,7 +1,5 @@
 package fr.medes.android.xml.mapper;
 
-import android.net.Uri;
-
 /**
  * Allows to navigate between objects and their serialized representation.
  * 
@@ -25,22 +23,6 @@ public interface Mapper {
 	 * @return
 	 */
 	public String serializedClass(Class<?> type);
-
-	/**
-	 * How a serialized class representation should be mapped back to a real uri.
-	 * 
-	 * @param elementName
-	 * @return
-	 */
-	public Uri realUri(String elementName);
-
-	/**
-	 * How an Uri name should be represented in its serialized form.
-	 * 
-	 * @param uri
-	 * @return
-	 */
-	public String serializeUri(Uri uri);
 
 	/**
 	 * How a serialized member representation should be mapped back to a real member.

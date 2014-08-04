@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.net.Uri;
 import fr.medes.android.util.annotation.ReflectionUtils;
 import fr.medes.android.util.annotation.ReflectionUtils.FieldCallback;
 import fr.medes.android.xml.annotation.XmlAlias;
@@ -15,8 +14,6 @@ public class ClassMapper implements Mapper {
 	private Map<String, Class<?>> aliasToClassMap = new HashMap<String, Class<?>>();
 	private Map<Class<?>, String> classToAliasMap = new HashMap<Class<?>, String>();
 	private Map<Class<?>, Mapper> classToMapperMap = new HashMap<Class<?>, Mapper>();
-	private Map<String, String> uriToAliasMap = new HashMap<String, String>();
-	private Map<String, Uri> aliasToUriMap = new HashMap<String, Uri>();
 
 	/**
 	 * Add a {@link Class} and its serialized representation to this mapper.
@@ -27,21 +24,6 @@ public class ClassMapper implements Mapper {
 	public void addClassAlias(String name, Class<?> type) {
 		aliasToClassMap.put(name, type);
 		classToAliasMap.put(type, name);
-		processClass(type);
-	}
-
-	/**
-	 * Add a serialized representation to both Class and Uri to this mapper.
-	 * 
-	 * @param name The serialized representation.
-	 * @param type The type represented.
-	 * @param uri The uri represented.
-	 */
-	public void addClassAlias(String name, Class<?> type, Uri uri) {
-		aliasToClassMap.put(name, type);
-		classToAliasMap.put(type, name);
-		aliasToUriMap.put(name, uri);
-		uriToAliasMap.put(uri.getPathSegments().get(0), name);
 		processClass(type);
 	}
 
@@ -82,16 +64,6 @@ public class ClassMapper implements Mapper {
 	@Override
 	public String serializedMember(Class<?> type, String memberName) {
 		return lookupMapperOfType(type).serializedMember(type, memberName);
-	}
-
-	@Override
-	public Uri realUri(String elementName) {
-		return aliasToUriMap.get(elementName);
-	}
-
-	@Override
-	public String serializeUri(Uri uri) {
-		return uriToAliasMap.get(uri.getPathSegments().get(0));
 	}
 
 	@Override

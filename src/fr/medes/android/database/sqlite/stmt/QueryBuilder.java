@@ -297,7 +297,7 @@ public class QueryBuilder extends StatementBuilder {
 	 * 
 	 * @return A Cursor object, which is positioned before the first entry.
 	 */
-	public Cursor query() {
+	public <T extends Cursor> T query() {
 		List<Object> args = new ArrayList<Object>();
 		String sql = buildStatementString(args);
 		String[] stringArray = args.toArray(new String[args.size()]);
@@ -305,7 +305,7 @@ public class QueryBuilder extends StatementBuilder {
 		if (uri != null) {
 			cursor.setNotificationUri(helper.getContext().getContentResolver(), uri);
 		}
-		return cursor;
+		return (T) cursor;
 	}
 
 	/**

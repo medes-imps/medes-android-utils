@@ -9,6 +9,13 @@ package fr.medes.android.xml.converters;
 public interface ConverterLookup {
 
 	/**
+	 * Add a converter to the lookup.
+	 * 
+	 * @param converter The converter to add.
+	 */
+	public void addConverter(Converter converter);
+
+	/**
 	 * Lookup a converter of the specified type.
 	 * 
 	 * @param clazz The converter type to find.
