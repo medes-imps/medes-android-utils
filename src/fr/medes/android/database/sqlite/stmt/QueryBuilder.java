@@ -590,7 +590,7 @@ public class QueryBuilder extends StatementBuilder {
 			if (first) {
 				first = false;
 			} else {
-				sb.append(',');
+				sb.append(", ");
 			}
 			appendColumnName(sb, select.getColumnName());
 			if (BaseColumns._ID.equals(select.getColumnName())) {
@@ -606,8 +606,8 @@ public class QueryBuilder extends StatementBuilder {
 				}
 				appendColumnName(sb, BaseColumns._ID);
 			}
-			sb.append(' ');
 		}
+		sb.append(' ');
 	}
 
 	private void appendLimit(StringBuilder sb) {
