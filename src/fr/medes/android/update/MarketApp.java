@@ -46,44 +46,22 @@ import android.os.Parcelable;
 public class MarketApp implements Parcelable {
 
 	public static interface Tags {
-		// Attributes
-		public static final String ATTR_ID = "id";
-
 		// Tags
 		public static final String APPLICATION = "application";
-		public static final String PACKAGE = "package";
 		public static final String LABEL = "label";
-		public static final String DESCRIPTION = "description";
+		public static final String PACKAGE = "package";
 		public static final String VERSION_CODE = "versionCode";
-		public static final String FILE = "file";
+		public static final String VERSION_NAME = "versionName";
 		public static final String SIZE = "size";
+		public static final String NAME = "name";
 	}
 
-	private long id;
-	private String packageName;
 	private String label;
-	private String description;
-	private String file;
+	private String packageName;
 	private int versionCode;
+	private String versionName;
 	private int size;
-
-	/**
-	 * Get the application identifier.
-	 * 
-	 * @return The application identifier
-	 */
-	public long getId() {
-		return id;
-	}
-
-	/**
-	 * Set the application identifier.
-	 * 
-	 * @param id The application identifier
-	 */
-	public void setId(long id) {
-		this.id = id;
-	}
+	private String name;
 
 	/**
 	 * Get the application package name.
@@ -122,42 +100,6 @@ public class MarketApp implements Parcelable {
 	}
 
 	/**
-	 * Get the application description.
-	 * 
-	 * @return The application description
-	 */
-	public String getDescription() {
-		return description;
-	}
-
-	/**
-	 * Set the application description.
-	 * 
-	 * @param description The application description
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	/**
-	 * Get the file name of the application.
-	 * 
-	 * @return The application file name
-	 */
-	public String getFile() {
-		return file;
-	}
-
-	/**
-	 * Set the application file name.
-	 * 
-	 * @param file The application file name
-	 */
-	public void setFile(String file) {
-		this.file = file;
-	}
-
-	/**
 	 * Get the application version code.
 	 * 
 	 * @return The application version code
@@ -176,6 +118,24 @@ public class MarketApp implements Parcelable {
 	}
 
 	/**
+	 * Get the application version name.
+	 * 
+	 * @return The application version name
+	 */
+	public String getVersionName() {
+		return versionName;
+	}
+
+	/**
+	 * Set the application version name.
+	 * 
+	 * @param versionName The application version name
+	 */
+	public void setVersionName(String versionName) {
+		this.versionName = versionName;
+	}
+
+	/**
 	 * Get the application size.
 	 * 
 	 * @return The application size
@@ -191,6 +151,24 @@ public class MarketApp implements Parcelable {
 	 */
 	public void setSize(int size) {
 		this.size = size;
+	}
+
+	/**
+	 * Get the application file name.
+	 * 
+	 * @return The application file name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * Set application file name.
+	 * 
+	 * @param name The application file name
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	/**
@@ -218,13 +196,12 @@ public class MarketApp implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeLong(id);
-		dest.writeInt(size);
-		dest.writeInt(versionCode);
-		dest.writeString(packageName);
 		dest.writeString(label);
-		dest.writeString(description);
-		dest.writeString(file);
+		dest.writeString(packageName);
+		dest.writeInt(versionCode);
+		dest.writeString(versionName);
+		dest.writeInt(size);
+		dest.writeString(name);
 	}
 
 	// Parcelable
@@ -238,13 +215,12 @@ public class MarketApp implements Parcelable {
 		@Override
 		public MarketApp createFromParcel(Parcel source) {
 			MarketApp app = new MarketApp();
-			app.setId(source.readLong());
-			app.setSize(source.readInt());
-			app.setVersionCode(source.readInt());
-			app.setPackageName(source.readString());
 			app.setLabel(source.readString());
-			app.setDescription(source.readString());
-			app.setFile(source.readString());
+			app.setPackageName(source.readString());
+			app.setVersionCode(source.readInt());
+			app.setVersionName(source.readString());
+			app.setSize(source.readInt());
+			app.setName(source.readString());
 			return app;
 		}
 	};
@@ -278,22 +254,21 @@ public class MarketApp implements Parcelable {
 
 		private static MarketApp parseApplication(XmlPullParser parser) throws XmlPullParserException, IOException {
 			MarketApp app = new MarketApp();
-			app.setId(Long.parseLong(parser.getAttributeValue(null, Tags.ATTR_ID)));
 			while (parser.getEventType() != XmlPullParser.END_TAG || !Tags.APPLICATION.equals(parser.getName())) {
 				if (parser.next() == XmlPullParser.START_TAG) {
 					String name = parser.getName();
-					if (Tags.DESCRIPTION.equals(name)) {
-						app.setDescription(parser.nextText());
-					} else if (Tags.FILE.equals(name)) {
-						app.setFile(parser.nextText());
-					} else if (Tags.LABEL.equals(name)) {
+					if (Tags.LABEL.equals(name)) {
 						app.setLabel(parser.nextText());
 					} else if (Tags.PACKAGE.equals(name)) {
 						app.setPackageName(parser.nextText());
 					} else if (Tags.VERSION_CODE.equals(name)) {
 						app.setVersionCode(Integer.parseInt(parser.nextText()));
+					} else if (Tags.VERSION_NAME.equals(name)) {
+						app.setVersionName(parser.nextText());
 					} else if (Tags.SIZE.equals(name)) {
 						app.setSize(Integer.parseInt(parser.nextText()));
+					} else if (Tags.NAME.equals(name)) {
+						app.setName(parser.nextText());
 					}
 				}
 			}

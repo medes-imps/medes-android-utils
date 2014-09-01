@@ -99,8 +99,8 @@ public class SampleUpdateActivity extends Activity implements View.OnClickListen
 			retain.checkUpdateTask.execute(server, packageName);
 
 		} else if (id == R.id.aml__update_install) {
-			final String url = "http://192.168.0.43/market/apk/" + retain.marketApp.getFile();
-			final String path = Environment.getExternalStorageDirectory().getPath() + "/" + retain.marketApp.getFile();
+			final String url = "http://192.168.0.43/market/apk/" + retain.marketApp.getName();
+			final String path = Environment.getExternalStorageDirectory().getPath() + "/" + retain.marketApp.getName();
 			retain.downloadFileTask = new DownloadFileTask();
 			retain.downloadFileTask.setCallback(mDownloadFileCallback);
 			retain.downloadFileTask.execute(url, path);

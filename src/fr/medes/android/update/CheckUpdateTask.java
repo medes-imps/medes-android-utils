@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 import android.os.AsyncTask;
+import android.util.Log;
 import fr.medes.android.os.BaseAsyncTask;
 
 /**
@@ -26,7 +27,7 @@ public class CheckUpdateTask extends BaseAsyncTask<String, Void, MarketApp> {
 		try {
 			return MarketApp.Parser.parse((InputStream) new URL(url).getContent());
 		} catch (Exception e) {
-			System.out.println("tamere");
+			Log.e(CheckUpdateTask.class.getName(), "Error parsing application description", e);
 		}
 		return null;
 	}
