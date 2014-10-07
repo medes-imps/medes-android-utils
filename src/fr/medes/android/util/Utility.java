@@ -1,8 +1,13 @@
 package fr.medes.android.util;
 
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Executor;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.os.AsyncTask;
 
 public class Utility {
 
@@ -32,19 +37,23 @@ public class Utility {
 		return d;
 	}
 
+	private static final int CORE_POOL_SIZE = 5;
+	private static final int MAXIMUM_POOL_SIZE = 128;
+	private static final int KEEP_ALIVE = 1;
+
+	private static final BlockingQueue<Runnable> sPoolWorkQueue = new LinkedBlockingQueue<Runnable>(10);
+
+	/**
+	 * An {@link Executor} that can be used to execute tasks in parallel.
+	 */
+	public static final Executor THREAD_POOL_EXECUTOR = new ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE,
+			KEEP_ALIVE, TimeUnit.SECONDS, sPoolWorkQueue);
+
 	/**
 	 * Run {@code r} on a worker thread, returning the AsyncTask
-	 * 
-	 * @return the AsyncTask; this is primarily for use by unit tests, which require the result of the task
 	 */
-	public static AsyncTask<Void, Void, Void> runAsync(final Runnable r) {
-		return new AsyncTask<Void, Void, Void>() {
-			@Override
-			protected Void doInBackground(Void... params) {
-				r.run();
-				return null;
-			}
-		}.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+	public static void runAsync(final Runnable r) {
+		THREAD_POOL_EXECUTOR.execute(r);
 	}
 
 }

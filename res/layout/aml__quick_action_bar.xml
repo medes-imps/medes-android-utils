@@ -17,74 +17,72 @@
 */
 -->
 
-<RelativeLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
 
-	<FrameLayout
-		android:id="@+id/aml__header"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@+id/aml__arrow_up"
-		android:layout_marginTop="-1px"
-		android:background="@drawable/aml__quick_action_top_frame" />
+    <FrameLayout
+        android:id="@+id/aml__header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/aml__arrow_up"
+        android:layout_marginTop="-1px"
+        android:background="@drawable/aml__quick_action_top_frame" />
 
-	<HorizontalScrollView
-		android:id="@+id/aml__scroll"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@id/aml__header"
-		android:background="@drawable/aml__quick_action_bar_background"
-		android:fadingEdgeLength="0dp"
-		android:scrollbars="none">
+    <HorizontalScrollView
+        android:id="@+id/aml__scroll"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/aml__header"
+        android:background="@drawable/aml__quick_action_bar_background"
+        android:fadingEdgeLength="0dp"
+        android:scrollbars="none" >
 
-		<LinearLayout
-			android:id="@+id/aml__rack"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_vertical"
-			android:padding="4dip"
-			android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/aml__rack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="4dip" >
 
-			<View
-				android:layout_width="wrap_content"
-				android:layout_height="fill_parent"
-				android:background="@drawable/aml__quick_action_bar_grip_left" />
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:background="@drawable/aml__quick_action_bar_grip_left" />
 
-			<LinearLayout
-				android:id="@+id/aml__quick_action_items"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content" />
+            <LinearLayout
+                android:id="@+id/aml__quick_action_items"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
 
-			<View
-				android:layout_width="wrap_content"
-				android:layout_height="fill_parent"
-				android:background="@drawable/aml__quick_action_bar_grip_right" />
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:background="@drawable/aml__quick_action_bar_grip_right" />
+        </LinearLayout>
+    </HorizontalScrollView>
 
-		</LinearLayout>
+    <FrameLayout
+        android:id="@+id/aml__footer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/aml__scroll"
+        android:background="@drawable/aml__quick_action_bar_bottom_frame" />
 
-	</HorizontalScrollView>
+    <ImageView
+        android:id="@+id/aml__arrow_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/aml__quick_action_arrow_up" />
 
-	<FrameLayout
-		android:id="@+id/aml__footer"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@id/aml__scroll"
-		android:background="@drawable/aml__quick_action_bar_bottom_frame" />
-
-	<ImageView
-		android:id="@+id/aml__arrow_up"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:src="@drawable/aml__quick_action_arrow_up" />
-
-	<ImageView
-		android:id="@+id/aml__arrow_down"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="-1px"
-		android:layout_below="@id/aml__footer"
-		android:src="@drawable/aml__quick_action_bar_arrow_down" />
+    <ImageView
+        android:id="@+id/aml__arrow_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/aml__footer"
+        android:layout_marginTop="-1px"
+        android:src="@drawable/aml__quick_action_bar_arrow_down" />
 
 </RelativeLayout>
