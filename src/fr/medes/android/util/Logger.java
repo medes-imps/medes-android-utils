@@ -21,11 +21,11 @@ public class Logger implements Runnable {
 	private static final File LOG_FILE = new File(Environment.getExternalStorageDirectory(), "log.txt");
 	private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault());
 
-	public static void e(String tag, String message, Exception e) {
+	public static void e(String tag, String message, Throwable t) {
 		if (DEFAULT) {
-			Log.e(tag, message, e);
+			Log.e(tag, message, t);
 		} else {
-			getIntance().log(Type.ERROR, new Date(), tag, message, e);
+			getIntance().log(Type.ERROR, new Date(), tag, message, t);
 		}
 	}
 
@@ -54,13 +54,13 @@ public class Logger implements Runnable {
 		mThread.start();
 	}
 
-	private void log(Type type, Date date, String tag, String message, Exception e) {
+	private void log(Type type, Date date, String tag, String message, Throwable t) {
 		LogEntry log = new LogEntry();
 		log.type = type;
 		log.date = date;
 		log.tag = tag;
 		log.message = message;
-		log.exception = e;
+		log.throwable = t;
 		mLogs.offer(log);
 	}
 
@@ -94,8 +94,8 @@ public class Logger implements Runnable {
 		ps.append(log.tag);
 		ps.append(": ");
 		ps.append(log.message);
-		if (log.exception != null) {
-			log.exception.printStackTrace(ps);
+		if (log.throwable != null) {
+			log.throwable.printStackTrace(ps);
 		}
 		ps.append('\n');
 		ps.close();
@@ -106,7 +106,7 @@ public class Logger implements Runnable {
 		Date date;
 		String tag;
 		String message;
-		Exception exception;
+		Throwable throwable;
 	}
 
 	private enum Type {
