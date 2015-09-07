@@ -33,7 +33,8 @@ public class ClassMapper implements Mapper {
 
 			@Override
 			public void doWith(Field field) {
-				if (field.isAnnotationPresent(XmlOmitField.class)) {
+				if (field.isAnnotationPresent(XmlOmitField.class) || field.getName().equals("shadow$_klass_")
+						|| field.getName().equals("shadow$_monitor_")) {
 					mapper.omitField(field.getName());
 					return;
 				}
