@@ -6,8 +6,10 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.text.TextUtils;
 
 public class Utility {
 
@@ -35,6 +37,21 @@ public class Utility {
 		GradientDrawable d = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, colors);
 		d.setCornerRadii(CORNERS);
 		return d;
+	}
+
+
+	public static Drawable getColorChip(String colorStr) {
+		if (TextUtils.isEmpty(colorStr)) {
+			return getColorChip(Color.BLACK);
+		}
+		int color;
+		try {
+			color = Color.parseColor(colorStr);
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+			color = Color.BLACK;
+		}
+		return getColorChip(color);
 	}
 
 	private static final int CORE_POOL_SIZE = 5;
