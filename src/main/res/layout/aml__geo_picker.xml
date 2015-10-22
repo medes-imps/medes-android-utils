@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/aml__parent"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:orientation="vertical" >
+<LinearLayout android:id="@+id/aml__parent"
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_horizontal"
+              android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
@@ -14,7 +14,7 @@
         android:gravity="left"
         android:text="@string/aml__latitude"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 
     <LinearLayout
         android:id="@+id/aml__geo_latitude"
@@ -22,14 +22,14 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dip"
         android:layout_marginRight="5dip"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/aml__northSouth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/aml__north"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
 
         <EditText
             android:id="@+id/aml__latDegree"
@@ -38,14 +38,14 @@
             android:layout_marginLeft="1dip"
             android:layout_marginRight="1dip"
             android:inputType="number"
-            android:maxLength="3" />
+            android:maxLength="3"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/aml__degrees_unit"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <EditText
             android:id="@+id/aml__latMinute"
@@ -54,14 +54,14 @@
             android:layout_marginLeft="1dip"
             android:layout_marginRight="1dip"
             android:inputType="number"
-            android:maxLength="2" />
+            android:maxLength="2"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/aml__minutes_unit"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <EditText
             android:id="@+id/aml__latSecond"
@@ -70,14 +70,14 @@
             android:layout_marginLeft="1dip"
             android:layout_marginRight="1dip"
             android:inputType="numberDecimal"
-            android:maxLength="6" />
+            android:maxLength="6"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/aml__seconds_unit"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <EditText
@@ -87,7 +87,7 @@
         android:layout_marginLeft="5dip"
         android:layout_marginRight="5dip"
         android:enabled="false"
-        android:inputType="numberDecimal|numberSigned" />
+        android:inputType="numberDecimal|numberSigned"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -97,7 +97,7 @@
         android:gravity="left"
         android:text="@string/aml__longitude"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 
     <LinearLayout
         android:id="@+id/aml__geo_longitude"
@@ -106,14 +106,14 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginLeft="5dip"
         android:layout_marginRight="5dip"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/aml__eastWest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/aml__east"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
 
         <EditText
             android:id="@+id/aml__lonDegree"
@@ -122,14 +122,14 @@
             android:layout_marginLeft="1dip"
             android:layout_marginRight="1dip"
             android:inputType="number"
-            android:maxLength="3" />
+            android:maxLength="3"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/aml__degrees_unit"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <EditText
             android:id="@+id/aml__lonMinute"
@@ -138,14 +138,14 @@
             android:layout_marginLeft="1dip"
             android:layout_marginRight="1dip"
             android:inputType="number"
-            android:maxLength="2" />
+            android:maxLength="2"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/aml__minutes_unit"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <EditText
             android:id="@+id/aml__lonSecond"
@@ -154,14 +154,14 @@
             android:layout_marginLeft="1dip"
             android:layout_marginRight="1dip"
             android:inputType="numberDecimal"
-            android:maxLength="6" />
+            android:maxLength="6"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/aml__seconds_unit"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <EditText
@@ -171,7 +171,7 @@
         android:layout_marginLeft="5dip"
         android:layout_marginRight="5dip"
         android:enabled="false"
-        android:inputType="numberDecimal|numberSigned" />
+        android:inputType="numberDecimal|numberSigned"/>
 
     <CheckBox
         android:id="@+id/aml__geoFormat"
@@ -180,6 +180,6 @@
         android:layout_marginLeft="20dip"
         android:layout_marginRight="20dip"
         android:text="@string/aml__geo_format"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
 
 </LinearLayout>

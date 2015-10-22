@@ -14,11 +14,13 @@
 ** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
-*/-->
+*/
+-->
 
-<fr.medes.android.widget.GeoPicker xmlns:android="http://schemas.android.com/apk/res/android"
+<fr.medes.android.widget.GeoPicker
     android:id="@+id/aml__geoPicker"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    android:padding="5dip" />
+    android:padding="5dip"/>
