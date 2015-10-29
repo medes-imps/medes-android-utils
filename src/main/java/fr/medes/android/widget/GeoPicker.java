@@ -1,7 +1,5 @@
 package fr.medes.android.widget;
 
-import java.lang.ref.WeakReference;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -17,6 +15,9 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import java.lang.ref.WeakReference;
+
 import fr.medes.android.R;
 import fr.medes.android.util.FormatHelper;
 
@@ -164,12 +165,20 @@ public class GeoPicker extends ScrollView {
 		mIsDecimal = isDecimal;
 	}
 
-	public Double getLatitude() {
-		return FormatHelper.toDouble(mLatDecimalView.getText().toString());
+	public double getLatitude() {
+		final Double lat = FormatHelper.toDouble(mLatDecimalView.getText().toString());
+		if (lat == null) {
+			return 0;
+		}
+		return lat;
 	}
 
-	public Double getLongitude() {
-		return FormatHelper.toDouble(mLonDecimalView.getText().toString());
+	public double getLongitude() {
+		final Double lon = FormatHelper.toDouble(mLonDecimalView.getText().toString());
+		if (lon == null) {
+			return 0;
+		}
+		return lon;
 	}
 
 	private void onLatDegreeValueChanged() {
@@ -297,7 +306,9 @@ public class GeoPicker extends ScrollView {
 		myState.north = mNorth;
 		myState.east = mEast;
 		return myState;
-	};
+	}
+
+	;
 
 	@Override
 	protected void onRestoreInstanceState(Parcelable state) {

@@ -24,7 +24,7 @@ public class GeoPickerDialog extends AlertDialog implements OnClickListener {
 		 * @param latitude The latitude that was set.
 		 * @param longitude The longitude that was set.
 		 */
-		public void onGeoSet(GeoPicker view, Double latitude, Double longitude);
+		public void onGeoSet(GeoPicker view, double latitude, double longitude);
 	}
 
 	/**
