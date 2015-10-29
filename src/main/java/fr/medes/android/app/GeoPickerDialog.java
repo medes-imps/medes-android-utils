@@ -49,7 +49,6 @@ public class GeoPickerDialog extends AlertDialog implements OnClickListener {
 	public GeoPickerDialog(Context context, OnGeoSetListener callback, int theme, double latitude, double longitude) {
 		super(context, theme);
 
-		setTitle(R.string.aml__dialog_geopicker_title);
 		setButton(DialogInterface.BUTTON_POSITIVE, context.getText(android.R.string.ok), this);
 		setIcon(0);
 

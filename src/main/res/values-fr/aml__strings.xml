@@ -26,4 +26,10 @@
     <string name="aml__north">Nord</string>
     <string name="aml__south">Sud</string>
 
+    <!-- Boolean dialog -->
+    <string-array name="aml__yes_no">
+        <item>Oui</item>
+        <item>Non</item>
+    </string-array>
+
 </resources>

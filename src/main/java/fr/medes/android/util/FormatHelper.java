@@ -1,8 +1,6 @@
 package fr.medes.android.util;
 
-import android.content.Context;
 import android.location.Location;
-import android.os.Bundle;
 
 import java.text.DateFormat;
 import java.text.DecimalFormatSymbols;
@@ -15,7 +13,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import fr.medes.android.R;
-import fr.medes.android.xml.converters.FloatConverter;
+import fr.medes.android.app.AmlApplication;
 
 /**
  * Contains static methods to format values to/from string representation or to human readable string.
@@ -91,12 +89,28 @@ public class FormatHelper {
 	/**
 	 * Convert a {@link Location} to a human readable string representation.
 	 *
-	 * @param context  The current context of the application.
 	 * @param location The location to represent.
 	 * @return The formatted string.
 	 */
-	public static String displayLocation(Context context, Location location) {
-		return context.getString(R.string.aml__location_format, location.getLatitude(), location.getLongitude());
+	public static String displayLocation(Location location) {
+		if (location == null) {
+			return null;
+		}
+		return AmlApplication.getContext().getString(R.string.aml__location_format, location.getLatitude(), location.getLongitude());
+	}
+
+	/**
+	 * Convert a Boolean to a human readable string representation.
+	 *
+	 * @param value The boolean value to represent.
+	 * @return The formatted string.
+	 */
+	public static String displayBoolean(Boolean value) {
+		if (value == null) {
+			return null;
+		}
+		final String[] values = AmlApplication.getContext().getResources().getStringArray(R.array.aml__yes_no);
+		return value ? values[0] : values[1];
 	}
 
 	/**

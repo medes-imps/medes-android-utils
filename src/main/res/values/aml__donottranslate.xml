@@ -2,7 +2,7 @@
 
     <!-- Geo Picker Dialog -->
     <string name="aml__degrees_unit" translatable="false">°</string>
-    <string name="aml__minutes_unit" translatable="false">"'"</string>
-    <string name="aml__seconds_unit" translatable="false">"''"</string>
+    <string name="aml__minutes_unit" translatable="false">\'</string>
+    <string name="aml__seconds_unit" translatable="false">"</string>
 
 </resources>

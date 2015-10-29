@@ -2,28 +2,33 @@
 
     <string name="aml__sample_update_check">Check for updates</string>
     <string name="aml__sample_update_install">Install updates</string>
-    <string name="aml__sample_update_parameters">"Update parameters"</string>
-    <string name="aml__sample_update_available_title">"Application updates"</string>
-    <string name="aml__sample_update_available_summary_enabled">"Update available"</string>
-    <string name="aml__sample_update_available_summary_disabled">"The application is up to date"</string>
-    <string name="aml__sample_update_app_title">"Loading&#8230;"</string>
-    <string name="aml__sample_update_app_message">"Downloading updates"</string>
-    <string name="aml__sample_update_server_title">"Server Update URL"</string>
+    <string name="aml__sample_update_parameters">Update parameters</string>
+    <string name="aml__sample_update_available_title">Application updates</string>
+    <string name="aml__sample_update_available_summary_enabled">Update available</string>
+    <string name="aml__sample_update_available_summary_disabled">The application is up to date</string>
+    <string name="aml__sample_update_app_title">Loading&#8230;</string>
+    <string name="aml__sample_update_app_message">Downloading updates</string>
+    <string name="aml__sample_update_server_title">Server Update URL</string>
 
     <!-- Format Helper -->
-    <string name="aml__location_format">"Lat %1$.3f ; Lon %2$.3f"</string>
+    <string name="aml__location_format">Lat %1$.3f ; Lon %2$.3f</string>
 
     <!-- Date Time Picker Dialog -->
-    <string name="aml__switchDateTime">"Switch to date/time"</string>
+    <string name="aml__switchDateTime">Switch to date/time</string>
 
     <!-- Geo Picker Dialog -->
-    <string name="aml__dialog_geopicker_title">"Coordinates"</string>
-    <string name="aml__latitude">"Latitude"</string>
-    <string name="aml__longitude">"Longitude"</string>
-    <string name="aml__geo_format">"Decimal"</string>
-    <string name="aml__east">"East"</string>
-    <string name="aml__west">"West"</string>
-    <string name="aml__north">"North"</string>
-    <string name="aml__south">"South"</string>
+    <string name="aml__latitude">Latitude</string>
+    <string name="aml__longitude">Longitude</string>
+    <string name="aml__geo_format">Decimal</string>
+    <string name="aml__east">East</string>
+    <string name="aml__west">West</string>
+    <string name="aml__north">North</string>
+    <string name="aml__south">South</string>
+
+    <!-- Boolean dialog -->
+    <string-array name="aml__yes_no">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
 
 </resources>

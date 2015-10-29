@@ -1,9 +1,23 @@
 package fr.medes.android.app;
 
-import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDexApplication;
+
 import fr.medes.android.database.sqlite.AmlOpenHelper;
 
-abstract public class AmlApplication extends Application {
+public abstract class AmlApplication extends MultiDexApplication {
+
+	private static Context mContext;
+
+	public static Context getContext() {
+		return mContext;
+	}
+
+	@Override
+	public void onCreate() {
+		super.onCreate();
+		mContext = this;
+	}
 
 	abstract public AmlOpenHelper getOpenHelper();
 
