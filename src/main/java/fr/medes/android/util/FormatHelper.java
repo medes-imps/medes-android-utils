@@ -310,6 +310,9 @@ public class FormatHelper {
 	 * @return a String instance or {@code null}.
 	 */
 	public static String toString(Object value) {
+		if (value instanceof String) {
+			return (String) value;
+		}
 		if (value != null) {
 			return value.toString();
 		}
