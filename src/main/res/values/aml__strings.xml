@@ -31,4 +31,8 @@
         <item>No</item>
     </string-array>
 
+    <string name="aml__camera">Camera</string>
+    <string name="aml__video_camera">Video camera</string>
+    <string name="aml__gallery">Gallery</string>
+
 </resources>

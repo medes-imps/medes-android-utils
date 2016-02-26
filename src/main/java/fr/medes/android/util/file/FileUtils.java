@@ -1,20 +1,21 @@
 package fr.medes.android.util.file;
 
+import android.content.ContentResolver;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.util.Log;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.DecimalFormat;
 
-import android.content.ContentResolver;
-import android.net.Uri;
-import android.util.Log;
-
 /**
  * Contains static method which operate on {@link File}.
- * 
+ *
  * @author MEDES-IMPS
- * 
  */
 public class FileUtils {
 
@@ -22,9 +23,9 @@ public class FileUtils {
 
 	/**
 	 * Write the request result data incoming in the input stream into the output stream
-	 * 
-	 * @param is the request result input stream
-	 * @param out the outputStream
+	 *
+	 * @param is             the request result input stream
+	 * @param out            the outputStream
 	 * @param expectedLength the data length expected
 	 * @return 0 if done with success, -1 otherwise
 	 */
@@ -76,7 +77,7 @@ public class FileUtils {
 
 	/**
 	 * Delete the file at the given path.
-	 * 
+	 *
 	 * @param path The file to delete.
 	 * @return {@code true} if the file was deleted, {@code false} otherwise.
 	 */
@@ -87,7 +88,7 @@ public class FileUtils {
 
 	/**
 	 * Get the extension for this uri.
-	 * 
+	 *
 	 * @param uri The uri determine the extension.
 	 * @return The extension or an empty string if no extension has been found.
 	 */
@@ -107,10 +108,10 @@ public class FileUtils {
 
 	/**
 	 * Copy the data from an {@link Uri} to an other.
-	 * 
-	 * @param r The current {@link ContentResolver}.
+	 *
+	 * @param r    The current {@link ContentResolver}.
 	 * @param from The uri to copy.
-	 * @param to The destination of the copy.
+	 * @param to   The destination of the copy.
 	 * @throws IOException
 	 */
 	public static void appendFile(ContentResolver r, Uri from, Uri to) throws IOException {
@@ -128,21 +129,21 @@ public class FileUtils {
 
 	/**
 	 * Convert a size to a human readable format.
-	 * 
+	 *
 	 * @param size The real size.
 	 * @return The formatted string.
 	 */
 	public static String readableFileSize(long size) {
 		if (size <= 0)
 			return "0o";
-		final String[] units = new String[] { "o", "Ko", "Mo", "Go", "To" };
+		final String[] units = new String[]{"o", "Ko", "Mo", "Go", "To"};
 		int digitGroups = (int) (Math.log(size) / Math.log(1000));
 		return new DecimalFormat("#,##0.###").format(size / Math.pow(1000, digitGroups)) + " " + units[digitGroups];
 	}
 
 	/**
 	 * Obtain the size of a directory in bytes.
-	 * 
+	 *
 	 * @param dir The directory to evaluate the size with.
 	 * @return The size of all files, directories contained in this folder.
 	 */
@@ -168,7 +169,7 @@ public class FileUtils {
 
 	/**
 	 * Delete the file.
-	 * 
+	 *
 	 * @param dir The file to delete.
 	 */
 	public static void deleteDirectory(File dir) {
@@ -185,6 +186,27 @@ public class FileUtils {
 				list[i].delete();
 			}
 		}
+	}
+
+	/**
+	 * Get display name from media Uri
+	 *
+	 * @param resolver The content resolver to use
+	 * @param uri      The uri of the media file
+	 * @return The file name or {@code null}
+	 */
+	public static String getUriDisplayName(ContentResolver resolver, Uri uri) {
+		Cursor cursor = resolver.query(uri, new String[]{MediaStore.MediaColumns.DISPLAY_NAME}, null, null, null);
+		if (cursor != null) {
+			int index = cursor.getColumnIndex(MediaStore.MediaColumns.DISPLAY_NAME);
+			if (index > -1) {
+				if (cursor.moveToFirst()) {
+					return cursor.getString(index);
+				}
+			}
+			cursor.close();
+		}
+		return null;
 	}
 
 }

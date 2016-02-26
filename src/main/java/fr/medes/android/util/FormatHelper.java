@@ -2,6 +2,7 @@ package fr.medes.android.util;
 
 import android.location.Location;
 
+import java.lang.reflect.Constructor;
 import java.text.DateFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
@@ -412,6 +413,37 @@ public class FormatHelper {
 				}
 			}
 			return result;
+		}
+		return null;
+	}
+
+	/**
+	 * Try to convert an Object into a given class instance.
+	 *
+	 * @param clazz The class to convert to.
+	 * @param value The value to convert.
+	 * @param <T>   The type of object.
+	 * @return an instance of T or null
+	 */
+	public static <T> T to(Class<T> clazz, Object value) {
+		if (value == null) {
+			return null;
+		}
+		if (clazz.isInstance(value)) {
+			return (T) value;
+		}
+		Constructor<T> constructor;
+		try {
+			constructor = clazz.getConstructor(value.getClass());
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		try {
+			return constructor.newInstance(value);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return null;
 	}
