@@ -9,9 +9,6 @@ import android.text.format.DateFormat;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
-/**
- * Created by julien on 23/10/15.
- */
 public class DateTimePickerFragment extends DialogFragment implements DateTimePickerDialog.OnDateTimeSetListener {
 
 	private static final String ARG_YEAR = "year";
@@ -21,7 +18,7 @@ public class DateTimePickerFragment extends DialogFragment implements DateTimePi
 	private static final String ARG_MINUTE = "minute";
 	private static final String ARG_TAG = "tag";
 
-	public static DatePickerFragment newInstance(int year, int monthOfYear, int dayOfMonth, int hourOfDay, int minute, String tag) {
+	public static DateTimePickerFragment newInstance(int year, int monthOfYear, int dayOfMonth, int hourOfDay, int minute, String tag) {
 		final Bundle bundle = new Bundle();
 		bundle.putInt(ARG_YEAR, year);
 		bundle.putInt(ARG_MONTH_OF_YEAR, monthOfYear);
@@ -29,7 +26,7 @@ public class DateTimePickerFragment extends DialogFragment implements DateTimePi
 		bundle.putInt(ARG_HOUR_OF_DAY, hourOfDay);
 		bundle.putInt(ARG_MINUTE, minute);
 		bundle.putString(ARG_TAG, tag);
-		final DatePickerFragment fragment = new DatePickerFragment();
+		final DateTimePickerFragment fragment = new DateTimePickerFragment();
 		fragment.setArguments(bundle);
 		return fragment;
 	}
