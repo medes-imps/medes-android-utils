@@ -14,7 +14,8 @@
     <string name="aml__location_format">Lat %1$.3f ; Lon %2$.3f</string>
 
     <!-- Date Time Picker Dialog -->
-    <string name="aml__switchDateTime">Changer la date/l\'heure</string>
+    <string name="aml__dateTimePicker_date">Date</string>
+    <string name="aml__dateTimePicker_time">Heure</string>
 
     <!-- Geo Picker Dialog -->
     <string name="aml__dialog_geopicker_title">Coordonnées</string>

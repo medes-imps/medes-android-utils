@@ -5,21 +5,41 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <CheckBox
-        android:id="@+id/aml__switchDateTime"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:checked="true"
-        android:text="@string/aml__switchDateTime"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"/>
+        android:layout_margin="5dip"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/aml__dateTimePickerHeader"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingEnd="0dip"
+            android:paddingLeft="150dip"
+            android:paddingRight="0dip"
+            android:paddingStart="15dip"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="?android:attr/textColorLink"
+            android:textStyle="bold"/>
+
+        <Switch
+            android:id="@+id/aml__switchDateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
 
     <DatePicker
         android:id="@+id/aml__datePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:calendarViewShown="false"
+        android:spinnersShown="true"/>
 
     <TimePicker
         android:id="@+id/aml__timePicker"
