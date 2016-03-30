@@ -16,6 +16,7 @@ public class ProgressDialogFragment extends DialogFragment {
 	public static final String ARG_MAX = "max";
 	public static final String ARG_CANCELABLE = "cancelable";
 	public static final String ARG_STYLE = "style";
+	public static final String ARG_NUMBER_FORMAT = "progressNumberFormat";
 
 	public static ProgressDialogFragment newInstance() {
 		return new ProgressDialogFragment();
@@ -30,6 +31,7 @@ public class ProgressDialogFragment extends DialogFragment {
 		String message = args.getString(ARG_MESSAGE);
 		int style = args.getInt(ARG_STYLE, ProgressDialog.STYLE_HORIZONTAL);
 		int max = args.getInt(ARG_MAX);
+		String numberFormat = args.getString(ARG_NUMBER_FORMAT);
 
 		setCancelable(cancelable);
 
@@ -39,6 +41,9 @@ public class ProgressDialogFragment extends DialogFragment {
 		dialog.setIndeterminate(false);
 		dialog.setProgressStyle(style);
 		dialog.setMax(max);
+		if (numberFormat != null) {
+			dialog.setProgressNumberFormat(numberFormat);
+		}
 
 		return dialog;
 	}
