@@ -1,22 +1,22 @@
 package fr.medes.android.database.sqlite.stmt;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.BaseColumns;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
-import android.net.Uri;
-import android.provider.BaseColumns;
-import fr.medes.android.database.sqlite.AmlOpenHelper;
 import fr.medes.android.database.sqlite.stmt.query.ColumnNameOrRawSql;
 import fr.medes.android.database.sqlite.stmt.query.Database;
 import fr.medes.android.database.sqlite.stmt.query.OrderBy;
 
 /**
  * Assists in building sql query (SELECT) statements for a particular table in a particular database.
- * 
+ *
  * @author Medes-IMPS
  * @see <a href="https://github.com/j256/ormlite-core.git">https://github.com/j256/ormlite-core.git</a>
  */
@@ -35,11 +35,10 @@ public class QueryBuilder extends StatementBuilder {
 	private Long limit;
 	private Long offset;
 	private List<JoinInfo> joinList;
-	private AmlOpenHelper helper;
+	private SQLiteOpenHelper helper;
 	private CursorFactory factory;
-	private Uri uri;
 
-	public QueryBuilder(AmlOpenHelper helper, String tableName) {
+	public QueryBuilder(SQLiteOpenHelper helper, String tableName) {
 		super(tableName, StatementType.SELECT);
 		this.helper = helper;
 	}
@@ -47,24 +46,12 @@ public class QueryBuilder extends StatementBuilder {
 	/**
 	 * Sets the cursor factory to be used for the query. You can use one factory for all queries on a database but it is
 	 * normally easier to specify the factory when doing this query.
-	 * 
+	 *
 	 * @param factory The factory to use.
 	 * @return This QueryBuilder object to allow for chaining of calls to set methods.
 	 */
 	public QueryBuilder setCursorFactory(CursorFactory factory) {
 		this.factory = factory;
-		return this;
-	}
-
-	/**
-	 * Register to watch a content URI for changes. This can be the URI of a specific data row (for example,
-	 * "content://my_provider_type/23"), or a a generic URI for a content type.
-	 * 
-	 * @param uri The content URI to watch.
-	 * @return This QueryBuilder object to allow for chaining of calls to set methods.
-	 */
-	public QueryBuilder setUri(Uri uri) {
-		this.uri = uri;
 		return this;
 	}
 
@@ -108,11 +95,6 @@ public class QueryBuilder extends StatementBuilder {
 	 * Add columns to be returned by the SELECT query. If no columns are selected then all columns are returned by
 	 * default. For classes with id columns, the id column is added to the select list automagically. This can be called
 	 * multiple times to add more columns to select.
-	 * 
-	 * <p>
-	 * <b>WARNING:</b> If you specify any columns to return, then any foreign-collection fields will be returned as null
-	 * <i>unless</i> their {@link ForeignCollectionField#columnName()} is also in the list.
-	 * </p>
 	 */
 	public QueryBuilder selectColumns(String... columns) {
 		for (String column : columns) {
@@ -133,8 +115,7 @@ public class QueryBuilder extends StatementBuilder {
 	}
 
 	/**
-	 * Add raw columns or aggregate functions (COUNT, MAX, ...) to the query. This will turn the query into something
-	 * only suitable for the {@link Dao#queryRaw(String, String...)} type of statement. This can be called multiple
+	 * Add raw columns or aggregate functions (COUNT, MAX, ...) to the query. This can be called multiple
 	 * times to add more columns to select.
 	 */
 	public QueryBuilder selectRaw(String... columns) {
@@ -147,7 +128,7 @@ public class QueryBuilder extends StatementBuilder {
 	/**
 	 * Add "GROUP BY" clause to the SQL query statement. This can be called multiple times to add additional "GROUP BY"
 	 * clauses.
-	 * 
+	 * <p/>
 	 * <p>
 	 * NOTE: Use of this means that the resulting objects may not have a valid ID column value so cannot be deleted or
 	 * updated.
@@ -177,7 +158,7 @@ public class QueryBuilder extends StatementBuilder {
 
 	/**
 	 * Add raw SQL "ORDER BY" clause to the SQL query statement.
-	 * 
+	 *
 	 * @param rawSql The raw SQL order by clause. This should not include the "ORDER BY".
 	 */
 	public QueryBuilder orderByRaw(String rawSql) {
@@ -187,10 +168,10 @@ public class QueryBuilder extends StatementBuilder {
 
 	/**
 	 * Add raw SQL "ORDER BY" clause to the SQL query statement.
-	 * 
+	 *
 	 * @param rawSql The raw SQL order by clause. This should not include the "ORDER BY".
-	 * @param args Optional arguments that correspond to any ? specified in the rawSql. Each of the arguments must have
-	 *        the sql-type set.
+	 * @param args   Optional arguments that correspond to any ? specified in the rawSql. Each of the arguments must have
+	 *               the sql-type set.
 	 */
 	public QueryBuilder orderByRaw(String rawSql, Object... args) {
 		addOrderBy(new OrderBy(rawSql, args));
@@ -200,7 +181,7 @@ public class QueryBuilder extends StatementBuilder {
 	/**
 	 * Add "DISTINCT" clause to the SQL query statement. Use of this means that the resulting objects may not have a
 	 * valid ID column value so cannot be deleted or updated.
-	 * 
+	 *
 	 * @return This QueryBuilder object to allow for chaining of calls to set methods.
 	 */
 	public QueryBuilder distinct() {
@@ -211,7 +192,7 @@ public class QueryBuilder extends StatementBuilder {
 
 	/**
 	 * Limit the output to maxRows maximum number of rows. Set to null for no limit (the default).
-	 * 
+	 *
 	 * @param maxRows The maximum number of rows returned by the query.
 	 * @return This QueryBuilder object to allow for chaining of calls to set methods.
 	 */
@@ -223,7 +204,7 @@ public class QueryBuilder extends StatementBuilder {
 	/**
 	 * Start the output at this row number. Set to null for no offset (the default). If you are paging you probably want
 	 * to specify a {@link #orderBy(String, boolean)}.
-	 * 
+	 *
 	 * @param startRow Row number to start the output.
 	 * @return This QueryBuilder object to allow for chaining of calls to set methods.
 	 */
@@ -235,9 +216,8 @@ public class QueryBuilder extends StatementBuilder {
 	/**
 	 * Set whether or not we should only return the count of the results. To get the count-of directly, use
 	 * {@link #countOf()}.
-	 * 
+	 *
 	 * @param {@code true} for a count-of query, {@code false} otherwise.
-	 * 
 	 * @return This QueryBuilder object to allow for chaining of calls to set methods.
 	 */
 	public QueryBuilder setCountOf(boolean countOf) {
@@ -247,7 +227,7 @@ public class QueryBuilder extends StatementBuilder {
 
 	/**
 	 * Makes the query return the largest value of the selected column.
-	 * 
+	 *
 	 * @param column The column to find the largest value.
 	 * @return This QueryBuilder object to allow for chaining of calls to set methods.
 	 */
@@ -259,8 +239,8 @@ public class QueryBuilder extends StatementBuilder {
 
 	/**
 	 * Add raw SQL "HAVING" clause to the SQL query statement.
-	 * 
-	 * @param The raw SQL "HAVING" clause. This should not include the "HAVING" string.
+	 *
+	 * @param having The raw SQL "HAVING" clause. This should not include the "HAVING" string.
 	 * @return This QueryBuilder object to allow for chaining of calls to set methods.
 	 */
 	public QueryBuilder having(String having) {
@@ -272,7 +252,7 @@ public class QueryBuilder extends StatementBuilder {
 	 * Join with another query builder. This will add into the SQL something close to " INNER JOIN other-table ...".
 	 * This allows you to link two tables that share a field of the same type. So even if there is NOT a foreign-object
 	 * relationship between the tables, you can JOIN them.
-	 * 
+	 * <p/>
 	 * <p>
 	 * <b>NOTE:</b> This will do combine the WHERE statement of the two query builders with a SQL "AND".
 	 * </p>
@@ -287,31 +267,27 @@ public class QueryBuilder extends StatementBuilder {
 	 * used to combine the WHERE statements.
 	 */
 	public QueryBuilder join(String localColumnName, String joinedColumnName, QueryBuilder joinedQueryBuilder,
-			JoinType type, JoinWhereOperation operation) {
+							 JoinType type, JoinWhereOperation operation) {
 		addJoinInfo(type, localColumnName, joinedColumnName, joinedQueryBuilder, operation);
 		return this;
 	}
 
 	/**
 	 * Query the given statement, returning a {@link Cursor} over the result set.
-	 * 
+	 *
 	 * @return A Cursor object, which is positioned before the first entry.
 	 */
 	public <T extends Cursor> T query() {
 		List<Object> args = new ArrayList<Object>();
 		String sql = buildStatementString(args);
 		String[] stringArray = args.toArray(new String[args.size()]);
-		Cursor cursor = helper.getReadableDatabase().rawQueryWithFactory(factory, sql, stringArray, null);
-		if (uri != null) {
-			cursor.setNotificationUri(helper.getContext().getContentResolver(), uri);
-		}
-		return (T) cursor;
+		return (T) helper.getReadableDatabase().rawQueryWithFactory(factory, sql, stringArray, null);
 	}
 
 	/**
 	 * Execute a statement that returns a 1 by 1 table with a numeric value. For example, SELECT COUNT(*) FROM table,
 	 * see {@link #countOf()}.
-	 * 
+	 *
 	 * @return The result of the query.
 	 */
 	public long queryForLong() {
@@ -329,7 +305,7 @@ public class QueryBuilder extends StatementBuilder {
 
 	/**
 	 * Execute a statement that returns a 1 by 1 table with a text value. For example, SELECT COUNT(*) FROM table.
-	 * 
+	 *
 	 * @return The result of the query.
 	 */
 	public String queryForString() {
@@ -347,9 +323,9 @@ public class QueryBuilder extends StatementBuilder {
 
 	/**
 	 * Update row(s) for the query. If the content provider supports transactions the update will be atomic.
-	 * 
+	 *
 	 * @param values The new field values. The key is the column name for the field. A null value will remove an
-	 *        existing field value.
+	 *               existing field value.
 	 * @return The number of rows updated.
 	 */
 	public int update(ContentValues values) {
@@ -367,7 +343,7 @@ public class QueryBuilder extends StatementBuilder {
 	/**
 	 * Deletes row(s) specified by the query. If the content provider supports transactions, the deletion will be
 	 * atomic.
-	 * 
+	 *
 	 * @return The number of rows deleted.
 	 */
 	public int delete() {
@@ -383,7 +359,7 @@ public class QueryBuilder extends StatementBuilder {
 
 	/**
 	 * Sets the count-of query flag using {@link #setCountOf(boolean)} to true.
-	 * 
+	 *
 	 * @return This QueryBuilder object to allow for chaining of calls to set methods.
 	 */
 	public QueryBuilder countOf() {
@@ -513,7 +489,7 @@ public class QueryBuilder extends StatementBuilder {
 	 * Add join info to the query. This can be called multiple times to join with more than one table.
 	 */
 	private void addJoinInfo(JoinType type, String localColumnName, String joinedColumnName,
-			QueryBuilder joinedQueryBuilder, JoinWhereOperation operation) {
+							 QueryBuilder joinedQueryBuilder, JoinWhereOperation operation) {
 		JoinInfo joinInfo = new JoinInfo(type, joinedQueryBuilder, operation);
 		joinInfo.localField = localColumnName;
 		joinInfo.remoteField = joinedColumnName;
@@ -770,8 +746,8 @@ public class QueryBuilder extends StatementBuilder {
 
 	/**
 	 * Type of the JOIN that we are adding.
-	 * 
-	 * <p>
+	 * <p/>
+	 * <p/>
 	 * <b>NOTE:</b> RIGHT and FULL JOIN SQL commands are not supported because we are only returning objects from the
 	 * "left" table.
 	 */
@@ -779,7 +755,7 @@ public class QueryBuilder extends StatementBuilder {
 		/**
 		 * The most common type of join.
 		 * "An SQL INNER JOIN return all rows from multiple tables where the join condition is met."
-		 * 
+		 * <p/>
 		 * <p>
 		 * See <a href="http://www.w3schools.com/sql/sql_join.asp" >SQL JOIN</a>
 		 * </p>
@@ -788,7 +764,7 @@ public class QueryBuilder extends StatementBuilder {
 		/**
 		 * "The LEFT JOIN keyword returns all rows from the left table (table1), with the matching rows in the right
 		 * table (table2). The result is NULL in the right side when there is no match."
-		 * 
+		 * <p/>
 		 * <p>
 		 * See: <a href="http://www.w3schools.com/sql/sql_join_left.asp" >LEFT JOIN SQL docs</a>
 		 * </p>
@@ -809,9 +785,13 @@ public class QueryBuilder extends StatementBuilder {
 	 * do so.
 	 */
 	public enum JoinWhereOperation {
-		/** combine the two WHERE parts of the JOINed queries with an AND */
+		/**
+		 * combine the two WHERE parts of the JOINed queries with an AND
+		 */
 		AND(WhereOperation.AND),
-		/** combine the two WHERE parts of the JOINed queries with an OR */
+		/**
+		 * combine the two WHERE parts of the JOINed queries with an OR
+		 */
 		OR(WhereOperation.OR),
 		// end
 		;

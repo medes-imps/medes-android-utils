@@ -3,8 +3,6 @@ package fr.medes.android.app;
 import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 
-import fr.medes.android.database.sqlite.AmlOpenHelper;
-
 public abstract class AmlApplication extends MultiDexApplication {
 
 	private static Context mContext;
@@ -18,7 +16,5 @@ public abstract class AmlApplication extends MultiDexApplication {
 		super.onCreate();
 		mContext = this;
 	}
-
-	abstract public AmlOpenHelper getOpenHelper();
 
 }
