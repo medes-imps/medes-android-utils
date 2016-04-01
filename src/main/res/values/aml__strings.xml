@@ -18,6 +18,7 @@
     <string name="aml__dateTimePicker_time">Time picker</string>
 
     <!-- Geo Picker Dialog -->
+    <string name="aml__dialog_geopicker_title">Coordinates</string>
     <string name="aml__latitude">Latitude</string>
     <string name="aml__longitude">Longitude</string>
     <string name="aml__geo_format">Decimal</string>
@@ -25,6 +26,10 @@
     <string name="aml__west">West</string>
     <string name="aml__north">North</string>
     <string name="aml__south">South</string>
+
+    <!-- Location provider -->
+    <string name="aml__obtaining_location">Obtaining current location&#8230;</string>
+    <string name="aml__provider_disabled">Provider %s is disabled</string>
 
     <!-- Boolean dialog -->
     <string-array name="aml__yes_no">

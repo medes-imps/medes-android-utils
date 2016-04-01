@@ -27,6 +27,10 @@
     <string name="aml__north">Nord</string>
     <string name="aml__south">Sud</string>
 
+    <!-- Location provider -->
+    <string name="aml__obtaining_location">Calcul de la position actuelle&#8230;</string>
+    <string name="aml__provider_disabled">Le fournisseur %s est désactivé</string>
+
     <!-- Boolean dialog -->
     <string-array name="aml__yes_no">
         <item>Oui</item>
