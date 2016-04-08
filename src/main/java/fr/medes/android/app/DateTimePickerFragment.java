@@ -16,16 +16,14 @@ public class DateTimePickerFragment extends DialogFragment implements DateTimePi
 	private static final String ARG_DAY_OF_MONTH = "day";
 	private static final String ARG_HOUR_OF_DAY = "hour";
 	private static final String ARG_MINUTE = "minute";
-	private static final String ARG_TAG = "tag";
 
-	public static DateTimePickerFragment newInstance(int year, int monthOfYear, int dayOfMonth, int hourOfDay, int minute, String tag) {
+	public static DateTimePickerFragment newInstance(int year, int monthOfYear, int dayOfMonth, int hourOfDay, int minute) {
 		final Bundle bundle = new Bundle();
 		bundle.putInt(ARG_YEAR, year);
 		bundle.putInt(ARG_MONTH_OF_YEAR, monthOfYear);
 		bundle.putInt(ARG_DAY_OF_MONTH, dayOfMonth);
 		bundle.putInt(ARG_HOUR_OF_DAY, hourOfDay);
 		bundle.putInt(ARG_MINUTE, minute);
-		bundle.putString(ARG_TAG, tag);
 		final DateTimePickerFragment fragment = new DateTimePickerFragment();
 		fragment.setArguments(bundle);
 		return fragment;
@@ -69,8 +67,7 @@ public class DateTimePickerFragment extends DialogFragment implements DateTimePi
 		if (mCallback == null) {
 			return;
 		}
-		final String tag = getArguments().getString(ARG_TAG);
-		mCallback.onDateTimeSet(year, monthOfYear, dayOfMonth, hourOfDay, minute, tag);
+		mCallback.onDateTimeSet(year, monthOfYear, dayOfMonth, hourOfDay, minute, getTag());
 	}
 
 	public interface Callback {

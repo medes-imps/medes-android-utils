@@ -8,20 +8,15 @@ import android.support.v4.app.DialogFragment;
 
 import fr.medes.android.widget.GeoPicker;
 
-/**
- * Created by julien on 29/10/15.
- */
 public class GeoPickerDialogFragment extends DialogFragment implements GeoPickerDialog.OnGeoSetListener {
 
 	private static final String ARG_LATITUDE = "latitude";
 	private static final String ARG_LONGITUDE = "longitude";
-	private static final String ARG_TAG = "tag";
 
-	public static GeoPickerDialogFragment newInstance(double latitude, double longitude, String tag) {
+	public static GeoPickerDialogFragment newInstance(double latitude, double longitude) {
 		Bundle bundle = new Bundle();
 		bundle.putDouble(ARG_LATITUDE, latitude);
 		bundle.putDouble(ARG_LONGITUDE, longitude);
-		bundle.putString(ARG_TAG, tag);
 		GeoPickerDialogFragment fragment = new GeoPickerDialogFragment();
 		fragment.setArguments(bundle);
 		return fragment;
@@ -61,8 +56,7 @@ public class GeoPickerDialogFragment extends DialogFragment implements GeoPicker
 		if (mCallback == null) {
 			return;
 		}
-		final String tag = getArguments().getString(ARG_TAG);
-		mCallback.onGeoSet(latitude, longitude, tag);
+		mCallback.onGeoSet(latitude, longitude, getTag());
 	}
 
 	public interface Callback {

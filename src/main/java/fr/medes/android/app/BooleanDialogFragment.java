@@ -10,22 +10,17 @@ import android.support.v7.app.AlertDialog;
 
 import fr.medes.android.R;
 
-/**
- * Created by julien on 23/10/15.
- */
 public class BooleanDialogFragment extends DialogFragment implements DialogInterface.OnClickListener {
 
 	private static final String ARG_TITLE = "title";
 	private static final String ARG_VALUE = "value";
-	private static final String ARG_TAG = "tag";
 
 	private Callback mCallback;
 
-	public static BooleanDialogFragment newInstance(String title, Boolean value, String tag) {
+	public static BooleanDialogFragment newInstance(String title, Boolean value) {
 		Bundle bundle = new Bundle();
 		bundle.putString(ARG_TITLE, title);
 		bundle.putInt(ARG_VALUE, value != null ? (value ? 0 : 1) : -1);
-		bundle.putString(ARG_TAG, tag);
 		BooleanDialogFragment fragment = new BooleanDialogFragment();
 		fragment.setArguments(bundle);
 		return fragment;
@@ -67,8 +62,7 @@ public class BooleanDialogFragment extends DialogFragment implements DialogInter
 		if (mCallback == null) {
 			return;
 		}
-		final String tag = getArguments().getString(ARG_TAG);
-		mCallback.onBooleanSet(which == 0, tag);
+		mCallback.onBooleanSet(which == 0, getTag());
 		dialog.dismiss();
 	}
 

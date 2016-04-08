@@ -16,12 +16,10 @@ import fr.medes.android.R;
 public class LocationProviderDialogFragment extends DialogFragment implements LocationListener {
 
 	private static final String ARG_PROVIDER = "provider";
-	private static final String ARG_TAG = "tag";
 
-	public static LocationProviderDialogFragment newInstance(String provider, String tag) {
+	public static LocationProviderDialogFragment newInstance(String provider) {
 		Bundle args = new Bundle();
 		args.putString(ARG_PROVIDER, provider);
-		args.putString(ARG_TAG, tag);
 		LocationProviderDialogFragment fragment = new LocationProviderDialogFragment();
 		fragment.setArguments(args);
 		return fragment;
@@ -91,7 +89,7 @@ public class LocationProviderDialogFragment extends DialogFragment implements Lo
 	public void onLocationChanged(Location location) {
 		dismiss();
 		if (mCallback != null) {
-			mCallback.onLocationSet(location, getArguments().getString(ARG_TAG));
+			mCallback.onLocationSet(location, getTag());
 		}
 	}
 

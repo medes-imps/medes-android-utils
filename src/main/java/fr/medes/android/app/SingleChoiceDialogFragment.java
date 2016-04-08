@@ -16,14 +16,12 @@ public class SingleChoiceDialogFragment extends DialogFragment implements Dialog
 	private static final String ARG_TITLE = "title";
 	private static final String ARG_ITEMS = "items";
 	private static final String ARG_CHECKED_ITEM = "checkedItem";
-	private static final String ARG_TAG = "tag";
 
-	public static SingleChoiceDialogFragment newInstance(String title, CharSequence[] items, int checkedItem, String tag) {
+	public static SingleChoiceDialogFragment newInstance(String title, CharSequence[] items, int checkedItem) {
 		Bundle bundle = new Bundle();
 		bundle.putString(ARG_TITLE, title);
 		bundle.putCharSequenceArray(ARG_ITEMS, items);
 		bundle.putInt(ARG_CHECKED_ITEM, checkedItem);
-		bundle.putString(ARG_TAG, tag);
 		SingleChoiceDialogFragment fragment = new SingleChoiceDialogFragment();
 		fragment.setArguments(bundle);
 		return fragment;
@@ -66,8 +64,7 @@ public class SingleChoiceDialogFragment extends DialogFragment implements Dialog
 	@Override
 	public void onClick(DialogInterface dialog, int which) {
 		if (mCallback != null) {
-			final String tag = getArguments().getString(ARG_TAG);
-			mCallback.onCheckedItemSet(which, tag);
+			mCallback.onCheckedItemSet(which, getTag());
 		}
 		dialog.dismiss();
 	}

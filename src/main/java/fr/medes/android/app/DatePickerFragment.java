@@ -8,22 +8,17 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
 
-/**
- * Created by julien on 23/10/15.
- */
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
 	private static final String ARG_YEAR = "year";
 	private static final String ARG_MONTH_OF_YEAR = "month";
 	private static final String ARG_DAY_OF_MONTH = "day";
-	private static final String ARG_TAG = "tag";
 
-	public static DatePickerFragment newInstance(int year, int monthOfYear, int dayOfMonth, String tag) {
+	public static DatePickerFragment newInstance(int year, int monthOfYear, int dayOfMonth) {
 		final Bundle bundle = new Bundle();
 		bundle.putInt(ARG_YEAR, year);
 		bundle.putInt(ARG_MONTH_OF_YEAR, monthOfYear);
 		bundle.putInt(ARG_DAY_OF_MONTH, dayOfMonth);
-		bundle.putString(ARG_TAG, tag);
 		final DatePickerFragment fragment = new DatePickerFragment();
 		fragment.setArguments(bundle);
 		return fragment;
@@ -64,8 +59,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 		if (mCallback == null) {
 			return;
 		}
-		final String tag = getArguments().getString(ARG_TAG);
-		mCallback.onDateSet(year, monthOfYear, dayOfMonth, tag);
+		mCallback.onDateSet(year, monthOfYear, dayOfMonth, getTag());
 	}
 
 	public interface Callback {

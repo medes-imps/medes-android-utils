@@ -8,22 +8,17 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 
-/**
- * Created by julien on 23/10/15.
- */
 public class MultiChoiceDialogFragment extends DialogFragment implements DialogInterface.OnClickListener, DialogInterface.OnMultiChoiceClickListener {
 
 	private static final String ARG_TITLE = "title";
 	private static final String ARG_ITEMS = "items";
 	private static final String ARG_CHECKED_ITEMS = "checkedItems";
-	private static final String ARG_TAG = "tag";
 
-	public static MultiChoiceDialogFragment newInstance(String title, CharSequence[] items, boolean[] checkedItems, String tag) {
+	public static MultiChoiceDialogFragment newInstance(String title, CharSequence[] items, boolean[] checkedItems) {
 		Bundle bundle = new Bundle();
 		bundle.putString(ARG_TITLE, title);
 		bundle.putCharSequenceArray(ARG_ITEMS, items);
 		bundle.putBooleanArray(ARG_CHECKED_ITEMS, checkedItems);
-		bundle.putString(ARG_TAG, tag);
 		MultiChoiceDialogFragment fragment = new MultiChoiceDialogFragment();
 		fragment.setArguments(bundle);
 		return fragment;
@@ -76,8 +71,7 @@ public class MultiChoiceDialogFragment extends DialogFragment implements DialogI
 			return;
 		}
 
-		final String tag = getArguments().getString(ARG_TAG);
-		mCallback.onCheckedItemsSet(mCheckedItems, tag);
+		mCallback.onCheckedItemsSet(mCheckedItems, getTag());
 	}
 
 

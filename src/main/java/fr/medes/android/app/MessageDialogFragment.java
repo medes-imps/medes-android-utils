@@ -10,17 +10,21 @@ import android.support.v7.app.AlertDialog;
 
 public class MessageDialogFragment extends DialogFragment implements DialogInterface.OnClickListener {
 
-	public static final String ARG_TITLE = "title";
-	public static final String ARG_MESSAGE = "message";
-	public static final String ARG_CANCEL = "cancel";
-	public static final String ARG_TAG = "tag";
+	private static final String ARG_TITLE = "title";
+	private static final String ARG_MESSAGE = "message";
+	private static final String ARG_CANCEL = "cancel";
 
 	public Callback mCallback;
 
 	public static MessageDialogFragment newInstance(String title, String message) {
+		return newInstance(title, message, false);
+	}
+
+	public static MessageDialogFragment newInstance(String title, String message, boolean cancel) {
 		Bundle bundle = new Bundle();
 		bundle.putString(ARG_TITLE, title);
 		bundle.putString(ARG_MESSAGE, message);
+		bundle.putBoolean(ARG_CANCEL, cancel);
 		MessageDialogFragment fragment = new MessageDialogFragment();
 		fragment.setArguments(bundle);
 		return fragment;
@@ -62,11 +66,11 @@ public class MessageDialogFragment extends DialogFragment implements DialogInter
 	@Override
 	public void onClick(DialogInterface dialog, int which) {
 		if (mCallback != null) {
-			mCallback.onClickDialog(which, getArguments().get(ARG_TAG));
+			mCallback.onClickDialog(which, getTag());
 		}
 	}
 
 	public interface Callback {
-		void onClickDialog(int which, Object tag);
+		void onClickDialog(int which, String tag);
 	}
 }

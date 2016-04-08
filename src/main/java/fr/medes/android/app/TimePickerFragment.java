@@ -13,13 +13,11 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 
 	private static final String ARG_HOUR = "hour";
 	private static final String ARG_MINUTE = "minute";
-	private static final String ARG_TAG = "tag";
 
-	public static TimePickerFragment newInstance(int hourOfDay, int minute, String tag) {
+	public static TimePickerFragment newInstance(int hourOfDay, int minute) {
 		final Bundle bundle = new Bundle();
 		bundle.putInt(ARG_HOUR, hourOfDay);
 		bundle.putInt(ARG_MINUTE, minute);
-		bundle.putString(ARG_TAG, tag);
 		final TimePickerFragment fragment = new TimePickerFragment();
 		fragment.setArguments(bundle);
 		return fragment;
@@ -60,8 +58,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 		if (mCallback == null) {
 			return;
 		}
-		final String tag = getArguments().getString(ARG_TAG);
-		mCallback.onTimeSet(hourOfDay, minute, tag);
+		mCallback.onTimeSet(hourOfDay, minute, getTag());
 	}
 
 	public interface Callback {

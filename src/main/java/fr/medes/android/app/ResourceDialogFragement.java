@@ -14,22 +14,17 @@ import java.io.Serializable;
 
 import fr.medes.android.widget.ResourceAdapter;
 
-/**
- * Created by julien on 23/10/15.
- */
 public class ResourceDialogFragement extends DialogFragment implements DialogInterface.OnClickListener {
 
 	private static final String ARG_DATA = "data";
 	private static final String ARG_RESOURCE = "resource";
 	private static final String ARG_TO = "to";
-	private static final String ARG_TAG = "tag";
 
-	public static ResourceDialogFragement newInstance(int[][] data, @LayoutRes int resource, @IdRes int[] to, String tag) {
+	public static ResourceDialogFragement newInstance(int[][] data, @LayoutRes int resource, @IdRes int[] to) {
 		Bundle bundle = new Bundle();
 		bundle.putSerializable(ARG_DATA, new IntMatrix(data));
 		bundle.putInt(ARG_RESOURCE, resource);
 		bundle.putIntArray(ARG_TO, to);
-		bundle.putString(ARG_TAG, tag);
 		ResourceDialogFragement fragement = new ResourceDialogFragement();
 		fragement.setArguments(bundle);
 		return fragement;
@@ -70,8 +65,7 @@ public class ResourceDialogFragement extends DialogFragment implements DialogInt
 	@Override
 	public void onClick(DialogInterface dialog, int which) {
 		if (mCallback != null) {
-			final String tag = getArguments().getString(ARG_TAG);
-			mCallback.onClick(which, tag);
+			mCallback.onClick(which, getTag());
 		}
 	}
 
