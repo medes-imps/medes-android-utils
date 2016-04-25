@@ -7,8 +7,9 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.widget.Toast;
 
 import fr.medes.android.R;
@@ -42,8 +43,9 @@ public class LocationProviderDialogFragment extends DialogFragment implements Lo
 		}
 	}
 
+	@NonNull
 	@Override
-	public Dialog onCreateDialog(Bundle savedInstanceState) {
+	public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 		ProgressDialog dialog = new ProgressDialog(getActivity());
 		dialog.setMessage(getString(R.string.aml__obtaining_location));
 		dialog.setIndeterminate(true);
@@ -74,15 +76,21 @@ public class LocationProviderDialogFragment extends DialogFragment implements Lo
 	@Override
 	public void onResume() {
 		super.onResume();
-		Log.i("TAG", "request location updates");
-		mLocationManager.requestLocationUpdates(mProvider, 0, 0, this);
+		try {
+			mLocationManager.requestLocationUpdates(mProvider, 0, 0, this);
+		} catch (SecurityException e) {
+			onLocationChanged(null);
+		}
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-		Log.i("TAG", "remove updates");
-		mLocationManager.removeUpdates(this);
+		try {
+			mLocationManager.removeUpdates(this);
+		} catch (SecurityException e) {
+			onLocationChanged(null);
+		}
 	}
 
 	@Override
@@ -109,6 +117,9 @@ public class LocationProviderDialogFragment extends DialogFragment implements Lo
 	}
 
 	public interface Callback {
+
 		void onLocationSet(Location location, String tag);
 	}
+
+
 }
