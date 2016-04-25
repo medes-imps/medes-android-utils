@@ -16,6 +16,7 @@ public class ProgressDialogFragment extends DialogFragment {
 	public static final String ARG_MAX = "max";
 	public static final String ARG_CANCELABLE = "cancelable";
 	public static final String ARG_STYLE = "style";
+	public static final String ARG_INDETERMINATE = "indeterminate";
 	public static final String ARG_NUMBER_FORMAT = "progressNumberFormat";
 
 	public static ProgressDialogFragment newInstance() {
@@ -26,11 +27,12 @@ public class ProgressDialogFragment extends DialogFragment {
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		Bundle args = getArguments();
-		boolean cancelable = args.getBoolean(ARG_CANCELABLE, false);
 		String title = args.getString(ARG_TITLE);
 		String message = args.getString(ARG_MESSAGE);
-		int style = args.getInt(ARG_STYLE, ProgressDialog.STYLE_HORIZONTAL);
+		boolean cancelable = args.getBoolean(ARG_CANCELABLE, false);
+		int style = args.getInt(ARG_STYLE, ProgressDialog.STYLE_SPINNER);
 		int max = args.getInt(ARG_MAX);
+		boolean indeterminate = args.getBoolean(ARG_INDETERMINATE, false);
 		String numberFormat = args.getString(ARG_NUMBER_FORMAT);
 
 		setCancelable(cancelable);
@@ -38,7 +40,7 @@ public class ProgressDialogFragment extends DialogFragment {
 		ProgressDialog dialog = new ProgressDialog(getActivity());
 		dialog.setTitle(title);
 		dialog.setMessage(message);
-		dialog.setIndeterminate(false);
+		dialog.setIndeterminate(indeterminate);
 		dialog.setProgressStyle(style);
 		dialog.setMax(max);
 		if (numberFormat != null) {
