@@ -1,8 +1,10 @@
 package fr.medes.android.app;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -10,6 +12,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
 import fr.medes.android.R;
@@ -26,6 +29,8 @@ public class LocationProviderDialogFragment extends DialogFragment implements Lo
 		return fragment;
 	}
 
+	private static final int REQUEST_PERMISSION = 1;
+
 	private LocationManager mLocationManager;
 	private String mProvider;
 
@@ -37,10 +42,6 @@ public class LocationProviderDialogFragment extends DialogFragment implements Lo
 		mProvider = getArguments().getString(ARG_PROVIDER);
 
 		mLocationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-		if (!mLocationManager.isProviderEnabled(mProvider)) {
-			Toast.makeText(getActivity(), getString(R.string.aml__provider_disabled, mProvider), Toast.LENGTH_LONG).show();
-			dismiss();
-		}
 	}
 
 	@NonNull
@@ -76,10 +77,15 @@ public class LocationProviderDialogFragment extends DialogFragment implements Lo
 	@Override
 	public void onResume() {
 		super.onResume();
-		try {
-			mLocationManager.requestLocationUpdates(mProvider, 0, 0, this);
-		} catch (SecurityException e) {
-			onLocationChanged(null);
+		if (mLocationManager.isProviderEnabled(mProvider)) {
+			if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+				mLocationManager.requestLocationUpdates(mProvider, 0, 0, this);
+			} else {
+				requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_PERMISSION);
+			}
+		} else {
+			Toast.makeText(getActivity(), getString(R.string.aml__provider_disabled, mProvider), Toast.LENGTH_LONG).show();
+			dismiss();
 		}
 	}
 
@@ -89,13 +95,30 @@ public class LocationProviderDialogFragment extends DialogFragment implements Lo
 		try {
 			mLocationManager.removeUpdates(this);
 		} catch (SecurityException e) {
-			onLocationChanged(null);
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+		switch (requestCode) {
+			case REQUEST_PERMISSION:
+				for (int grant : grantResults) {
+					if (grant != PackageManager.PERMISSION_GRANTED) {
+						Toast.makeText(getContext(), R.string.aml__permission_not_granted, Toast.LENGTH_LONG).show();
+						onLocationChanged(null);
+						return;
+					}
+				}
+				break;
+			default:
+				super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 		}
 	}
 
 	@Override
 	public void onLocationChanged(Location location) {
-		dismiss();
+		dismissAllowingStateLoss();
 		if (mCallback != null) {
 			mCallback.onLocationSet(location, getTag());
 		}
@@ -120,6 +143,5 @@ public class LocationProviderDialogFragment extends DialogFragment implements Lo
 
 		void onLocationSet(Location location, String tag);
 	}
-
 
 }

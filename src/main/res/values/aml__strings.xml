@@ -31,6 +31,8 @@
     <string name="aml__obtaining_location">Obtaining current location&#8230;</string>
     <string name="aml__provider_disabled">Provider %s is disabled</string>
 
+    <string name="aml__permission_not_granted">Permission not granted. Unable to launch this operation.</string>
+
     <!-- Boolean dialog -->
     <string-array name="aml__yes_no">
         <item>Yes</item>
