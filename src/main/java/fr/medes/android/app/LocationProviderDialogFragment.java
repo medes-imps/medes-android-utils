@@ -106,7 +106,7 @@ public class LocationProviderDialogFragment extends DialogFragment implements Lo
 				for (int grant : grantResults) {
 					if (grant != PackageManager.PERMISSION_GRANTED) {
 						Toast.makeText(getContext(), R.string.aml__permission_not_granted, Toast.LENGTH_LONG).show();
-						onLocationChanged(null);
+						dismissAllowingStateLoss();
 						return;
 					}
 				}
@@ -118,7 +118,7 @@ public class LocationProviderDialogFragment extends DialogFragment implements Lo
 
 	@Override
 	public void onLocationChanged(Location location) {
-		dismissAllowingStateLoss();
+		dismiss();
 		if (mCallback != null) {
 			mCallback.onLocationSet(location, getTag());
 		}

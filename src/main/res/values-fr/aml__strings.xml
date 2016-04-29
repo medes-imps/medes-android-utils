@@ -29,7 +29,7 @@
 
     <!-- Location provider -->
     <string name="aml__obtaining_location">Calcul de la position actuelle&#8230;</string>
-    <string name="aml__provider_disabled">Le fournisseur %s est désactivé</string>
+    <string name="aml__provider_disabled">Le mode de localisation %s est désactivé.</string>
 
     <string name="aml__permission_not_granted">Permission refusée. Impossible d\'utiliser cette fonctionnalité.</string>
 
