@@ -4,18 +4,29 @@ import java.lang.reflect.Field;
 
 public class BuildConfigHelper {
 
-	public static final String APPLICATION_ID = (String) getBuildConfigValue("APPLICATION_ID");
+	private static final Class<?> BUILD_CONFIG_CLASS = getBuildConfigClass();
 
-	private static Object getBuildConfigValue(String fieldName) {
+	public static Object getBuildConfigValue(String fieldName) {
+		return getDeclaredFieldValue(BUILD_CONFIG_CLASS, fieldName);
+	}
+
+	private static Class<?> getBuildConfigClass() {
 		try {
 			String className = "fr.medes.android.BuildConfigWrapper";
 			Class c = Class.forName(className);
-			Field f = c.getDeclaredField(fieldName);
-			f.setAccessible(true);
-			return f.get(null);
+			return getDeclaredFieldValue(c, "BUILD_CONFIG_CLASS");
 		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+			throw new RuntimeException(e);
+		}
+	}
+
+	private static <T> T getDeclaredFieldValue(Class<?> clazz, String fieldName) {
+		try {
+			Field f = clazz.getDeclaredField(fieldName);
+			f.setAccessible(true);
+			return (T) f.get(null);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
 	}
 
