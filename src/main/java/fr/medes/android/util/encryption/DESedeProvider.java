@@ -1,5 +1,7 @@
 package fr.medes.android.util.encryption;
 
+import android.content.Context;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -7,8 +9,6 @@ import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESedeKeySpec;
-
-import android.content.Context;
 
 public class DESedeProvider implements EncryptionProvider {
 
@@ -55,8 +55,9 @@ public class DESedeProvider implements EncryptionProvider {
 
 	/**
 	 * Load a secret key from the specified file
-	 * 
-	 * @param fileName the key file name
+	 *
+	 * @param context The context of the application
+	 * @param rawId   The raw resource id
 	 * @return the secret key
 	 */
 	private SecretKey loadSecretKeyFromFile(Context context, int rawId) {
@@ -73,15 +74,13 @@ public class DESedeProvider implements EncryptionProvider {
 		}
 
 		/* create the key from raw data read */
-		SecretKey myTripleDesKey = null;
 		try {
 			DESedeKeySpec myTripleDesKeySpec = new DESedeKeySpec(tripleDesKeyData);
-			myTripleDesKey = SecretKeyFactory.getInstance("DESede").generateSecret(myTripleDesKeySpec);
+			return SecretKeyFactory.getInstance("DESede").generateSecret(myTripleDesKeySpec);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
-		return myTripleDesKey;
 	}
 
 }

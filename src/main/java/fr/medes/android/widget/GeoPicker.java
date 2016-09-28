@@ -232,14 +232,13 @@ public class GeoPicker extends ScrollView {
 	private void updateLatDegreeDisplay() {
 		Double dec = FormatHelper.toDouble(mLatDecimalView.getText().toString());
 		if (dec != null) {
-			double dd = dec.doubleValue();
-			double add = Math.abs(dd);
+			double add = Math.abs(dec);
 			int d = (int) add;
 			double f = (add - d) * 60;
 			int m = (int) f;
 			double s = (f - m) * 60;
 
-			setNorth(dd > 0);
+			setNorth(dec > 0);
 			mLatDegreeView.setText(Integer.toString(d));
 			mLatMinuteView.setText(Integer.toString(m));
 			mLatSecondView.setText(Double.toString(s));
@@ -266,14 +265,13 @@ public class GeoPicker extends ScrollView {
 	private void updateLonDegreeDisplay() {
 		Double dec = FormatHelper.toDouble(mLonDecimalView.getText().toString());
 		if (dec != null) {
-			double dd = dec.doubleValue();
-			double add = Math.abs(dd);
+			double add = Math.abs(dec);
 			int d = (int) add;
 			double f = (add - d) * 60;
 			int m = (int) f;
 			double s = (f - m) * 60;
 
-			setEast(dd > 0);
+			setEast(dec > 0);
 			mLonDegreeView.setText(Integer.toString(d));
 			mLonMinuteView.setText(Integer.toString(m));
 			mLonSecondView.setText(Double.toString(s));
@@ -307,8 +305,6 @@ public class GeoPicker extends ScrollView {
 		myState.east = mEast;
 		return myState;
 	}
-
-	;
 
 	@Override
 	protected void onRestoreInstanceState(Parcelable state) {
@@ -376,7 +372,7 @@ public class GeoPicker extends ScrollView {
 		private final WeakReference<TextView> mView;
 
 		public MyTextWatcher(TextView view) {
-			mView = new WeakReference<TextView>(view);
+			mView = new WeakReference<>(view);
 		}
 
 		@Override

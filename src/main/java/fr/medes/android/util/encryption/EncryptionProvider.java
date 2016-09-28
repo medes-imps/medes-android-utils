@@ -2,9 +2,9 @@ package fr.medes.android.util.encryption;
 
 public interface EncryptionProvider {
 
-	public String getName();
+	String getName();
 
-	public byte[] encrypt(byte[] decrypted);
+	byte[] encrypt(byte[] decrypted);
 
-	public byte[] decrypt(byte[] encrypted);
+	byte[] decrypt(byte[] encrypted);
 }

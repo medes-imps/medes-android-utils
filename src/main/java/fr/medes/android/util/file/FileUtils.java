@@ -155,13 +155,13 @@ public class FileUtils {
 		}
 
 		long result = 0;
-		for (int i = 0; i < list.length; i++) {
+		for (File file : list) {
 			// Recursive call if it's a directory
-			if (list[i].isDirectory()) {
-				result += getDirectorySize(list[i]);
+			if (file.isDirectory()) {
+				result += getDirectorySize(file);
 			} else {
 				// Sum the file size in bytes
-				result += list[i].length();
+				result += file.length();
 			}
 		}
 		return result; // return the file size
@@ -179,11 +179,11 @@ public class FileUtils {
 			return;
 		}
 
-		for (int i = 0; i < list.length; i++) {
-			if (list[i].isDirectory()) {
-				deleteDirectory(list[i]);
+		for (File file : list) {
+			if (file.isDirectory()) {
+				deleteDirectory(file);
 			} else {
-				list[i].delete();
+				file.delete();
 			}
 		}
 	}

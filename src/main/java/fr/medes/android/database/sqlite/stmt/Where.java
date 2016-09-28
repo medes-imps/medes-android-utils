@@ -1,8 +1,9 @@
 package fr.medes.android.database.sqlite.stmt;
 
+import android.provider.BaseColumns;
+
 import java.util.List;
 
-import android.provider.BaseColumns;
 import fr.medes.android.database.sqlite.stmt.QueryBuilder.InternalQueryBuilderWrapper;
 import fr.medes.android.database.sqlite.stmt.query.Between;
 import fr.medes.android.database.sqlite.stmt.query.Clause;
@@ -20,7 +21,7 @@ import fr.medes.android.database.sqlite.stmt.query.SimpleComparison;
 /**
  * Manages the various clauses that make up the WHERE part of a SQL statement. You get one of these when you call
  * {@link StatementBuilder#where} or you can set the where clause by calling {@link StatementBuilder#setWhere}.
- * 
+ *
  * @author Medes-IMPS
  */
 public class Where implements Clause {
@@ -33,7 +34,7 @@ public class Where implements Clause {
 
 	/**
 	 * AND operation which takes the previous clause and the next clause and AND's them together.
-	 * 
+	 *
 	 * @return This Where object to allow for chaining of calls to set methods.
 	 */
 	public Where and() {
@@ -45,7 +46,7 @@ public class Where implements Clause {
 
 	/**
 	 * AND operation which takes 2 (or more) arguments and AND's them together.
-	 * 
+	 * <p/>
 	 * <p>
 	 * <b>NOTE:</b> There is no guarantee of the order of the clauses that are generated in the final query.
 	 * </p>
@@ -53,8 +54,8 @@ public class Where implements Clause {
 	 * <b>NOTE:</b> I can't remove the generics code warning that can be associated with this method. You can instead
 	 * use the {@link #and(int)} method.
 	 * </p>
-	 * 
-	 * @param first The first Where clause.
+	 *
+	 * @param first  The first Where clause.
 	 * @param second The second Where clause.
 	 * @param others Others Where clauses.
 	 * @return This Where object to allow for chaining of calls to set methods.
@@ -71,15 +72,15 @@ public class Where implements Clause {
 	 * This method needs to be used carefully. This will absorb a number of clauses that were registered previously with
 	 * calls to {@link Where#eq(String, Object)} or other methods and will string them together with AND's. There is no
 	 * way to verify the number of previous clauses so the programmer has to count precisely.
-	 * 
+	 * <p/>
 	 * <p>
 	 * <b>NOTE:</b> There is no guarantee of the order of the clauses that are generated in the final query.
 	 * </p>
-	 * 
+	 * <p/>
 	 * <p>
 	 * <b>NOTE:</b> This will throw an exception if numClauses is 0 but will work with 1 or more.
 	 * </p>
-	 * 
+	 *
 	 * @param numClauses The number of clauses to absorb.
 	 * @return This Where object to allow for chaining of calls to set methods.
 	 */
@@ -97,10 +98,10 @@ public class Where implements Clause {
 
 	/**
 	 * Add a BETWEEN clause so the column must be between the low and high parameters.
-	 * 
+	 *
 	 * @param columnName Column to apply the BETWEEN clause.
-	 * @param low The lower value.
-	 * @param high The higher value.
+	 * @param low        The lower value.
+	 * @param high       The higher value.
 	 * @return This Where object to allow for chaining of calls to set methods.
 	 */
 	public Where between(String columnName, Object low, Object high) {
@@ -110,9 +111,9 @@ public class Where implements Clause {
 
 	/**
 	 * Add a '=' clause so the column must be equal to the value.
-	 * 
+	 *
 	 * @param columnName The column to apply the clause.
-	 * @param value The comparison value.
+	 * @param value      The comparison value.
 	 * @return This Where object to allow for chaining of calls to set methods.
 	 */
 	public Where eq(String columnName, Object value) {
@@ -122,9 +123,9 @@ public class Where implements Clause {
 
 	/**
 	 * Add a '&gt;=' clause so the column must be greater-than or equals-to the value.
-	 * 
+	 *
 	 * @param columnName The column to apply the clause.
-	 * @param value The comparison value.
+	 * @param value      The comparison value.
 	 * @return This Where object to allow for chaining of calls to set methods.
 	 */
 	public Where ge(String columnName, Object value) {
@@ -134,9 +135,9 @@ public class Where implements Clause {
 
 	/**
 	 * Add a '&gt;' clause so the column must be greater-than the value.
-	 * 
+	 *
 	 * @param columnName The column to apply the clause.
-	 * @param value The comparison value.
+	 * @param value      The comparison value.
 	 * @return This Where object to allow for chaining of calls to set methods.
 	 */
 	public Where gt(String columnName, Object value) {
@@ -146,9 +147,9 @@ public class Where implements Clause {
 
 	/**
 	 * Add a IN clause so the column must be equal-to one of the objects from the list passed in.
-	 * 
+	 *
 	 * @param columnName The column to apply the clause.
-	 * @param objects The list of values to compare with.
+	 * @param objects    The list of values to compare with.
 	 * @return This Where object to allow for chaining of calls to set methods.
 	 */
 	public Where in(String columnName, Iterable<?> objects) {
@@ -158,9 +159,9 @@ public class Where implements Clause {
 
 	/**
 	 * Same as {@link #in(String, Iterable)} except with a NOT IN clause.
-	 * 
+	 *
 	 * @param columnName The column to apply the clause.
-	 * @param objects The list of values to compare with.
+	 * @param objects    The list of values to compare with.
 	 * @return This Where object to allow for chaining of calls to set methods.
 	 */
 	public Where notIn(String columnName, Iterable<?> objects) {
@@ -170,9 +171,9 @@ public class Where implements Clause {
 
 	/**
 	 * Add a IN clause so the column must be equal-to one of the objects passed in.
-	 * 
+	 *
 	 * @param columnName The column to apply the clause.
-	 * @param objects The list of values to compare with.
+	 * @param objects    The list of values to compare with.
 	 * @return This Where object to allow for chaining of calls to set methods.
 	 */
 	public Where in(String columnName, Object... objects) {
@@ -181,9 +182,9 @@ public class Where implements Clause {
 
 	/**
 	 * Same as {@link #in(String, Object...)} except with a NOT IN clause.
-	 * 
+	 *
 	 * @param columnName The column to apply the clause.
-	 * @param objects The list of values to compare with.
+	 * @param objects    The list of values to compare with.
 	 * @return This Where object to allow for chaining of calls to set methods.
 	 */
 	public Where notIn(String columnName, Object... objects) {
@@ -195,12 +196,12 @@ public class Where implements Clause {
 	 * parenthesis. The QueryBuilder must return 1 and only one column which can be set with the
 	 * {@link QueryBuilder#selectColumns(String...)} method calls. That 1 argument must match the SQL type of the
 	 * column-name passed to this method.
-	 * 
+	 * <p/>
 	 * <p>
 	 * <b>NOTE:</b> The sub-query will be prepared at the same time that the outside query is.
 	 * </p>
-	 * 
-	 * @param columnName The column to apply the clause.
+	 *
+	 * @param columnName      The column to apply the clause.
 	 * @param subQueryBuilder The sub-query which results will be used for comparison.
 	 * @return This Where object to allow for chaining of calls to set methods.
 	 */
@@ -210,8 +211,8 @@ public class Where implements Clause {
 
 	/**
 	 * Same as {@link #in(String, QueryBuilder)} except with a NOT IN clause.
-	 * 
-	 * @param columnName The column to apply the clause.
+	 *
+	 * @param columnName      The column to apply the clause.
 	 * @param subQueryBuilder The sub-query which results will be used for comparison.
 	 * @return This Where object to allow for chaining of calls to set methods.
 	 */
@@ -221,11 +222,11 @@ public class Where implements Clause {
 
 	/**
 	 * Add a EXISTS clause with a sub-query inside of parenthesis.
-	 * 
+	 * <p/>
 	 * <p>
 	 * <b>NOTE:</b> The sub-query will be prepared at the same time that the outside query is.
 	 * </p>
-	 * 
+	 *
 	 * @param subQueryBuilder The sub-query which results will be used for determining existence.
 	 * @return This Where object to allow for chaining of calls to set methods.
 	 */
@@ -239,7 +240,7 @@ public class Where implements Clause {
 
 	/**
 	 * Add a 'IS NULL' clause so the column must be null. '=' NULL does not work.
-	 * 
+	 *
 	 * @param columnName The column name which value must be tested.
 	 * @return This Where object to allow for chaining of calls to set methods.
 	 */
@@ -250,7 +251,7 @@ public class Where implements Clause {
 
 	/**
 	 * Add a 'IS NOT NULL' clause so the column must not be null. '<>' NULL does not work.
-	 * 
+	 *
 	 * @param columnName The column name which value must be tested.
 	 * @return This Where object to allow for chaining of calls to set methods.
 	 */
@@ -261,9 +262,9 @@ public class Where implements Clause {
 
 	/**
 	 * Add a '&lt;=' clause so the column must be less-than or equals-to the value.
-	 * 
+	 *
 	 * @param columnName The column to apply the clause.
-	 * @param value The comparison value.
+	 * @param value      The comparison value.
 	 * @return This Where object to allow for chaining of calls to set methods.
 	 */
 	public Where le(String columnName, Object value) {
@@ -273,9 +274,9 @@ public class Where implements Clause {
 
 	/**
 	 * Add a '&lt;' clause so the column must be less-than the value.
-	 * 
+	 *
 	 * @param columnName The column to apply the clause.
-	 * @param value The comparison value.
+	 * @param value      The comparison value.
 	 * @return This Where object to allow for chaining of calls to set methods.
 	 */
 	public Where lt(String columnName, Object value) {
@@ -285,9 +286,9 @@ public class Where implements Clause {
 
 	/**
 	 * Add a LIKE clause so the column must match the value using '%' patterns.
-	 * 
+	 *
 	 * @param columnName The column to apply the clause.
-	 * @param value The comparison value.
+	 * @param value      The comparison value.
 	 * @return This Where object to allow for chaining of calls to set methods.
 	 */
 	public Where like(String columnName, Object value) {
@@ -297,9 +298,9 @@ public class Where implements Clause {
 
 	/**
 	 * Add a '&lt;&gt;' clause so the column must be not-equal-to the value.
-	 * 
+	 *
 	 * @param columnName The column to apply the clause.
-	 * @param value The comparison value.
+	 * @param value      The comparison value.
 	 * @return This Where object to allow for chaining of calls to set methods.
 	 */
 	public Where ne(String columnName, Object value) {
@@ -309,7 +310,7 @@ public class Where implements Clause {
 
 	/**
 	 * Used to NOT the next clause specified.
-	 * 
+	 *
 	 * @return This Where object to allow for chaining of calls to set methods.
 	 */
 	public Where not() {
@@ -319,7 +320,7 @@ public class Where implements Clause {
 
 	/**
 	 * Used to NOT the argument clause specified.
-	 * 
+	 *
 	 * @param comparison The clause to NOT.
 	 * @return This Where object to allow for chaining of calls to set methods.
 	 */
@@ -330,7 +331,7 @@ public class Where implements Clause {
 
 	/**
 	 * OR operation which takes the previous clause and the next clause and OR's them together.
-	 * 
+	 *
 	 * @return This Where object to allow for chaining of calls to set methods.
 	 */
 	public Where or() {
@@ -342,7 +343,7 @@ public class Where implements Clause {
 
 	/**
 	 * OR operation which takes 2 arguments and OR's them together.
-	 * 
+	 * <p/>
 	 * <p>
 	 * <b>NOTE:</b> There is no guarantee of the order of the clauses that are generated in the final query.
 	 * </p>
@@ -350,9 +351,9 @@ public class Where implements Clause {
 	 * <b>NOTE:</b> I can't remove the generics code warning that can be associated with this method. You can instead
 	 * use the {@link #or(int)} method.
 	 * </p>
-	 * 
-	 * @param first The first Where clause.
-	 * @param second The second Where clause.
+	 *
+	 * @param left   The first Where clause.
+	 * @param right  The second Where clause.
 	 * @param others Others Where clauses.
 	 * @return This Where object to allow for chaining of calls to set methods.
 	 */
@@ -368,15 +369,15 @@ public class Where implements Clause {
 	 * This method needs to be used carefully. This will absorb a number of clauses that were registered previously with
 	 * calls to {@link Where#eq(String, Object)} or other methods and will string them together with OR's. There is no
 	 * way to verify the number of previous clauses so the programmer has to count precisely.
-	 * 
+	 * <p/>
 	 * <p>
 	 * <b>NOTE:</b> There is no guarantee of the order of the clauses that are generated in the final query.
 	 * </p>
-	 * 
+	 * <p/>
 	 * <p>
 	 * <b>NOTE:</b> This will throw an exception if numClauses is 0 but will work with 1 or more.
 	 * </p>
-	 * 
+	 *
 	 * @param numClauses The number of clauses to absorb.
 	 * @return This Where object to allow for chaining of calls to set methods.
 	 */
@@ -394,7 +395,7 @@ public class Where implements Clause {
 
 	/**
 	 * Add a clause where the ID is equal to the argument.
-	 * 
+	 *
 	 * @param id The value of the ID to test.
 	 * @return This Where object to allow for chaining of calls to set methods.
 	 */
@@ -407,10 +408,10 @@ public class Where implements Clause {
 	 * Add a raw statement as part of the where that can be anything that the database supports. Using more structured
 	 * methods is recommended but this gives more control over the query and allows you to utilize database specific
 	 * features.
-	 * 
+	 *
 	 * @param rawStatement The statement that we should insert into the WHERE.
-	 * @param args Optional arguments that correspond to any ? specified in the rawStatement. Each of the arguments must
-	 *        have either the corresponding columnName or the sql-type set.
+	 * @param args         Optional arguments that correspond to any ? specified in the rawStatement. Each of the arguments must
+	 *                     have either the corresponding columnName or the sql-type set.
 	 * @return This Where object to allow for chaining of calls to set methods.
 	 */
 	public Where raw(String rawStatement, Object... args) {
@@ -421,10 +422,10 @@ public class Where implements Clause {
 	/**
 	 * Make a comparison where the operator is specified by the caller. It is up to the caller to specify an appropriate
 	 * operator for the database and that it be formatted correctly.
-	 * 
-	 * @param columnName The column name to apply the clause.
+	 *
+	 * @param columnName  The column name to apply the clause.
 	 * @param rawOperator The operator for comparison.
-	 * @param value The value to compare the column with.
+	 * @param value       The value to compare the column with.
 	 * @return This Where object to allow for chaining of calls to set methods.
 	 */
 	public Where rawComparison(String columnName, String rawOperator, Object value) {
@@ -434,7 +435,7 @@ public class Where implements Clause {
 
 	/**
 	 * Add a clause to this clause.
-	 * 
+	 *
 	 * @param clause The Clause to add.
 	 * @return This Where object to allow for chaining of calls to set methods.
 	 */

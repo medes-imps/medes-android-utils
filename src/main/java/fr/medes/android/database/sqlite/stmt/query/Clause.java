@@ -17,5 +17,5 @@ public interface Clause {
 	 * @param argList The list of arguments. New arguments will be automatically added to this list, it must not be
 	 *        {@code null}.
 	 */
-	public void appendSql(String tableName, StringBuilder sb, List<Object> argList);
+	void appendSql(String tableName, StringBuilder sb, List<Object> argList);
 }

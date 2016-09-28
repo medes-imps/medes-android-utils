@@ -6,7 +6,7 @@ import android.text.TextWatcher;
 public class TextWatcherHelper implements TextWatcher {
 
 	public interface OnTextChangeListener {
-		public void onChange(int id, String newText);
+		void onChange(int id, String newText);
 	}
 
 	private final int mId;

@@ -8,20 +8,19 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation used to define a serialized representation of a class or a field.
- * 
+ *
  * @author Medes-IMPS
- * 
  */
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.FIELD, ElementType.TYPE })
+@Target({ElementType.FIELD, ElementType.TYPE})
 public @interface XmlAlias {
 
 	/**
 	 * The value of the class or field value.
-	 * 
+	 *
 	 * @return The serialized representation.
 	 */
-	public String value();
+	String value();
 
 }

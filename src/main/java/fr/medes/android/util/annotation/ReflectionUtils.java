@@ -4,41 +4,37 @@ import java.lang.reflect.Field;
 
 /**
  * Simple utility class for working with the reflection API.
- * 
+ *
  * @author Medes-IMPS
- * 
  */
 public class ReflectionUtils {
 
 	/**
 	 * Callback interface invoked on each field in the hierarchy.
-	 * 
+	 *
 	 * @author Medes-IMPS
-	 * 
 	 */
-	public static interface FieldCallback {
+	public interface FieldCallback {
 
 		/**
 		 * Perform an operation using the given field.
-		 * 
+		 *
 		 * @param field The field to operate on.
 		 * @throws IllegalAccessException
 		 * @throws IllegalArgumentException
 		 */
-		public void doWith(Field field) throws IllegalArgumentException, IllegalAccessException;
+		void doWith(Field field) throws IllegalArgumentException, IllegalAccessException;
 
 	}
 
 	/**
 	 * Invoke the given callback on all fields in the target class, going up the class hierarchy to get all declared
 	 * fields.
-	 * 
-	 * @param clazz The target class to analyze.
+	 *
+	 * @param clazz    The target class to analyze.
 	 * @param callback The callback to invoke for each field.
-	 * 
-	 * @throws IllegalArgumentException
 	 */
-	public static void doWithFields(Class<?> clazz, FieldCallback callback) throws IllegalArgumentException {
+	public static void doWithFields(Class<?> clazz, FieldCallback callback) {
 		Class<?> superClass = clazz.getSuperclass();
 		if (superClass != null) {
 			doWithFields(superClass, callback);
@@ -58,8 +54,8 @@ public class ReflectionUtils {
 	/**
 	 * Returns a {@link Field} object for the field with the given name which is declared in the a {@link Class} or its
 	 * parents.
-	 * 
-	 * @param clazz the class containing the field
+	 *
+	 * @param clazz     the class containing the field
 	 * @param fieldName the name of the field
 	 * @return the {@link Field} object
 	 * @throws NoSuchFieldException if the requested field can not be found.
@@ -68,6 +64,7 @@ public class ReflectionUtils {
 		try {
 			return clazz.getDeclaredField(fieldName);
 		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
 		}
 		Class<?> superClass = clazz.getSuperclass();
 		if (superClass != null) {
@@ -78,19 +75,18 @@ public class ReflectionUtils {
 
 	/**
 	 * Returns the field value of a field or <code>null</code> if the field is not present or empty.
-	 * 
-	 * @param clazz the class to find the field within
+	 *
+	 * @param clazz     the class to find the field within
 	 * @param fieldName the field name
-	 * @param the object to access
+	 * @param object    object to access
 	 * @return the field value or <code>null</code>
 	 */
 	public static Object getFieldValue(Class<?> clazz, String fieldName, Object object) {
 		try {
 			Field field = getField(clazz, fieldName);
 			return field.get(object);
-		} catch (NoSuchFieldException e) {
-		} catch (IllegalArgumentException e) {
-		} catch (IllegalAccessException e) {
+		} catch (NoSuchFieldException | IllegalArgumentException | IllegalAccessException e) {
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -98,10 +94,10 @@ public class ReflectionUtils {
 	/**
 	 * Returns a {@link Class} object for the class with the given name which is declared in the {@link Class} or its
 	 * parents.
-	 * 
+	 *
 	 * @param clazz The class containing the class
-	 * @param name The name of the class to search
-	 * @return
+	 * @param name  The name of the class to search
+	 * @return The inner class
 	 */
 	public static Class<?> getClass(Class<?> clazz, String name) {
 		// Search class in the given class

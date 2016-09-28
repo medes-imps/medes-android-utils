@@ -1,12 +1,5 @@
 package fr.medes.android.update;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -14,11 +7,18 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
  * Application representation object
  * <p/>
  * You will find here below an example of a formatted XML file containing application information for update:
- * 
+ * <p/>
  * <pre>
  *         {@code
  * 	<application id="546">
@@ -33,27 +33,27 @@ import android.os.Parcelable;
  * </pre>
  * <p/>
  * The server folder structure should be as describe below:
- * 
+ * <p/>
  * <pre>
  * {@code
  * http://my.server.com/update/package/a.package.name.xml
  * http://my.server.com/update/apk/myapp-2.9.5.apk
  * }
  * </pre>
- * 
+ *
  * @author Medes-IMPS
  */
 public class MarketApp implements Parcelable {
 
-	public static interface Tags {
+	public interface Tags {
 		// Tags
-		public static final String APPLICATION = "application";
-		public static final String LABEL = "label";
-		public static final String PACKAGE = "package";
-		public static final String VERSION_CODE = "versionCode";
-		public static final String VERSION_NAME = "versionName";
-		public static final String SIZE = "size";
-		public static final String NAME = "name";
+		String APPLICATION = "application";
+		String LABEL = "label";
+		String PACKAGE = "package";
+		String VERSION_CODE = "versionCode";
+		String VERSION_NAME = "versionName";
+		String SIZE = "size";
+		String NAME = "name";
 	}
 
 	private String label;
@@ -65,7 +65,7 @@ public class MarketApp implements Parcelable {
 
 	/**
 	 * Get the application package name.
-	 * 
+	 *
 	 * @return The application package name
 	 */
 	public String getPackageName() {
@@ -74,7 +74,7 @@ public class MarketApp implements Parcelable {
 
 	/**
 	 * Set the application package name.
-	 * 
+	 *
 	 * @param packageName The application package name
 	 */
 	public void setPackageName(String packageName) {
@@ -83,7 +83,7 @@ public class MarketApp implements Parcelable {
 
 	/**
 	 * Get the application label.
-	 * 
+	 *
 	 * @return The application label
 	 */
 	public String getLabel() {
@@ -92,7 +92,7 @@ public class MarketApp implements Parcelable {
 
 	/**
 	 * Set the application label.
-	 * 
+	 *
 	 * @param label The application label
 	 */
 	public void setLabel(String label) {
@@ -101,7 +101,7 @@ public class MarketApp implements Parcelable {
 
 	/**
 	 * Get the application version code.
-	 * 
+	 *
 	 * @return The application version code
 	 */
 	public int getVersionCode() {
@@ -110,7 +110,7 @@ public class MarketApp implements Parcelable {
 
 	/**
 	 * Set the application version code.
-	 * 
+	 *
 	 * @param versionCode The application version code
 	 */
 	public void setVersionCode(int versionCode) {
@@ -119,7 +119,7 @@ public class MarketApp implements Parcelable {
 
 	/**
 	 * Get the application version name.
-	 * 
+	 *
 	 * @return The application version name
 	 */
 	public String getVersionName() {
@@ -128,7 +128,7 @@ public class MarketApp implements Parcelable {
 
 	/**
 	 * Set the application version name.
-	 * 
+	 *
 	 * @param versionName The application version name
 	 */
 	public void setVersionName(String versionName) {
@@ -137,7 +137,7 @@ public class MarketApp implements Parcelable {
 
 	/**
 	 * Get the application size.
-	 * 
+	 *
 	 * @return The application size
 	 */
 	public int getSize() {
@@ -146,7 +146,7 @@ public class MarketApp implements Parcelable {
 
 	/**
 	 * Set the applicatuion size.
-	 * 
+	 *
 	 * @param size The application size
 	 */
 	public void setSize(int size) {
@@ -155,7 +155,7 @@ public class MarketApp implements Parcelable {
 
 	/**
 	 * Get the application file name.
-	 * 
+	 *
 	 * @return The application file name
 	 */
 	public String getName() {
@@ -164,7 +164,7 @@ public class MarketApp implements Parcelable {
 
 	/**
 	 * Set application file name.
-	 * 
+	 *
 	 * @param name The application file name
 	 */
 	public void setName(String name) {
@@ -173,7 +173,7 @@ public class MarketApp implements Parcelable {
 
 	/**
 	 * Check if the application described by this content is installed and can be updated.
-	 * 
+	 *
 	 * @param context The current context
 	 * @return {@code true} if the application can be updated, {@code false} otherwise
 	 */
@@ -185,6 +185,7 @@ public class MarketApp implements Parcelable {
 				return true;
 			}
 		} catch (NameNotFoundException e) {
+			e.printStackTrace();
 		}
 		return false;
 	}
@@ -233,7 +234,7 @@ public class MarketApp implements Parcelable {
 		/**
 		 * Try to extract an application from a given file. The application has to be described using an XML
 		 * description.
-		 * 
+		 *
 		 * @param is The input stream
 		 * @return The extracted application
 		 * @throws XmlPullParserException

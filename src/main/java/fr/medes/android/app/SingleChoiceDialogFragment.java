@@ -8,9 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 
-/**
- * Created by julien on 23/10/15.
- */
 public class SingleChoiceDialogFragment extends DialogFragment implements DialogInterface.OnClickListener {
 
 	private static final String ARG_TITLE = "title";

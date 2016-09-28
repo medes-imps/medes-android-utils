@@ -1,8 +1,5 @@
 package fr.medes.android.app;
 
-import java.lang.reflect.Field;
-import java.text.NumberFormat;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -12,6 +9,9 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.widget.TextView;
+
+import java.lang.reflect.Field;
+import java.text.NumberFormat;
 
 public class MyProgressDialog extends ProgressDialog {
 
@@ -90,7 +90,7 @@ public class MyProgressDialog extends ProgressDialog {
 		mFormatter = formatter;
 	}
 
-	public static interface Formatter {
-		public String format(int progress, int max);
+	public interface Formatter {
+		String format(int progress, int max);
 	}
 }

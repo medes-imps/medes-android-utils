@@ -23,7 +23,7 @@ public class BaseDialogPreference extends DialogPreference {
 		 * @param positiveResult Whether the positive button was clicked (true), or the negative button was clicked or
 		 *        the dialog was canceled (false).
 		 */
-		public void onDialogClosed(Preference preference, boolean positiveResult);
+		void onDialogClosed(Preference preference, boolean positiveResult);
 	}
 
 	private OnDialogCloseListener mOnDialogCloseListener;

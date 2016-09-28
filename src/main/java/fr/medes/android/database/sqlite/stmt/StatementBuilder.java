@@ -1,12 +1,11 @@
 package fr.medes.android.database.sqlite.stmt;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Assists in building of SQL statements for a particular table in a particular database.
- * 
+ *
  * @author Medes-IMPS
  */
 public abstract class StatementBuilder {
@@ -28,7 +27,7 @@ public abstract class StatementBuilder {
 	/**
 	 * Returns a {@link Where} object that should be used to add SQL where clauses to the statement. This will also
 	 * reset the where object so you can use the same query builder with a different where statement.
-	 * 
+	 *
 	 * @return The {@link Where} object.
 	 */
 	public Where where() {
@@ -38,7 +37,7 @@ public abstract class StatementBuilder {
 
 	/**
 	 * Set the {@link Where} object on the query. This allows someone to use the same Where object on multiple queries.
-	 * 
+	 *
 	 * @param where The {@link Where} object on the query.
 	 */
 	public void setWhere(Where where) {
@@ -48,11 +47,11 @@ public abstract class StatementBuilder {
 	/**
 	 * Build and return a string version of the query. If you change the where or make other calls you will need to
 	 * re-call this method to re-prepare the query for execution.
-	 * 
+	 *
 	 * @return The string version of the query.
 	 */
-	public String prepareStatementString() throws SQLException {
-		List<Object> argList = new ArrayList<Object>();
+	public String prepareStatementString() {
+		List<Object> argList = new ArrayList<>();
 		return buildStatementString(argList);
 	}
 
@@ -66,25 +65,24 @@ public abstract class StatementBuilder {
 	/**
 	 * Build and return a string version of the query. If you change the where or make other calls you will need to
 	 * re-call this method to re-prepare the query for execution.
-	 * 
+	 *
 	 * @param argList The list of arguments. New arguments will be automatically added to this list, it must not be
-	 *        {@code null}.
+	 *                {@code null}.
 	 * @return The string version version of this query.
 	 */
 	public String buildStatementString(List<Object> argList) {
 		StringBuilder sb = new StringBuilder(128);
 		appendStatementString(sb, argList);
-		String statement = sb.toString();
-		return statement;
+		return sb.toString();
 	}
 
 	/**
 	 * Internal method to build a query while tracking various arguments. Users should use the
 	 * {@link #prepareStatementString()} method instead. This needs to be protected because of InternalQueryBuilder.
-	 * 
-	 * @param sb The StringBuilder to append the statement to.
+	 *
+	 * @param sb      The StringBuilder to append the statement to.
 	 * @param argList The list of arguments. New arguments will be automatically added to this list, it must not be
-	 *        {@code null}.
+	 *                {@code null}.
 	 */
 	protected void appendStatementString(StringBuilder sb, List<Object> argList) {
 		appendStatementStart(sb, argList);
@@ -94,19 +92,19 @@ public abstract class StatementBuilder {
 
 	/**
 	 * Append the start of our statement string to the StringBuilder.
-	 * 
-	 * @param sb The StringBuilder to add the statement string to.
+	 *
+	 * @param sb      The StringBuilder to add the statement string to.
 	 * @param argList The list of arguments. New arguments will be automatically added to this list, it must not be
-	 *        {@code null}.
+	 *                {@code null}.
 	 */
 	protected abstract void appendStatementStart(StringBuilder sb, List<Object> argList);
 
 	/**
 	 * Append the WHERE part of the statement to the StringBuilder.
-	 * 
-	 * @param sb The StringBuilder to add the where statement string to.
-	 * @param argList The list of arguments. New arguments will be automatically added to this list, it must not be
-	 *        {@code null}.
+	 *
+	 * @param sb        The StringBuilder to add the where statement string to.
+	 * @param argList   The list of arguments. New arguments will be automatically added to this list, it must not be
+	 *                  {@code null}.
 	 * @param operation defines which type of where operation we are appending.
 	 * @return {@code true} if a {@link WhereOperation#FIRST} operation was appended, {@code false} otherwise.
 	 */
@@ -122,16 +120,16 @@ public abstract class StatementBuilder {
 
 	/**
 	 * Append the end of our statement string to the StringBuilder.
-	 * 
-	 * @param sb The StringBuilder to add the end statement string to.
+	 *
+	 * @param sb      The StringBuilder to add the end statement string to.
 	 * @param argList The list of arguments. New arguments will be automatically added to this list, it must not be
-	 *        {@code null}.
+	 *                {@code null}.
 	 */
 	protected abstract void appendStatementEnd(StringBuilder sb, List<Object> argList);
 
 	/**
 	 * Return if we need to prepend table-name to columns.
-	 * 
+	 *
 	 * @return {@code true} if we nedd to prepend table-name, {@code false} otherwise.
 	 */
 	protected boolean shouldPrependTableNameToColumns() {
@@ -148,18 +146,30 @@ public abstract class StatementBuilder {
 	/**
 	 * Types of statements that we are building.
 	 */
-	public static enum StatementType {
-		/** SQL statement in the form of SELECT ... */
+	public enum StatementType {
+		/**
+		 * SQL statement in the form of SELECT ...
+		 */
 		SELECT(true, true, false, false),
-		/** SQL statement in the form of SELECT COUNT(*)... or something */
+		/**
+		 * SQL statement in the form of SELECT COUNT(*)... or something
+		 */
 		SELECT_LONG(true, true, false, false),
-		/** SQL statement in the form of SELECT... with aggregate functions or something */
+		/**
+		 * SQL statement in the form of SELECT... with aggregate functions or something
+		 */
 		SELECT_RAW(true, true, false, false),
-		/** SQL statement in the form of UPDATE ... */
+		/**
+		 * SQL statement in the form of UPDATE ...
+		 */
 		UPDATE(true, false, true, false),
-		/** SQL statement in the form of DELETE ... */
+		/**
+		 * SQL statement in the form of DELETE ...
+		 */
 		DELETE(true, false, true, false),
-		/** SQL statement in the form of CREATE TABLE, ALTER TABLE, or something returning the number of rows affected */
+		/**
+		 * SQL statement in the form of CREATE TABLE, ALTER TABLE, or something returning the number of rows affected
+		 */
 		EXECUTE(false, false, false, true),
 		// end
 		;
@@ -169,8 +179,8 @@ public abstract class StatementBuilder {
 		private final boolean okForUpdate;
 		private final boolean okForExecute;
 
-		private StatementType(boolean okForStatementBuilder, boolean okForQuery, boolean okForUpdate,
-				boolean okForExecute) {
+		StatementType(boolean okForStatementBuilder, boolean okForQuery, boolean okForUpdate,
+		              boolean okForExecute) {
 			this.okForStatementBuilder = okForStatementBuilder;
 			this.okForQuery = okForQuery;
 			this.okForUpdate = okForUpdate;
@@ -205,7 +215,7 @@ public abstract class StatementBuilder {
 		private final String before;
 		private final String after;
 
-		private WhereOperation(String before, String after) {
+		WhereOperation(String before, String after) {
 			this.before = before;
 			this.after = after;
 		}

@@ -1,5 +1,9 @@
 package fr.medes.android.util;
 
+import android.os.Environment;
+import android.os.Process;
+import android.util.Log;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -9,10 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.LinkedBlockingQueue;
-
-import android.os.Environment;
-import android.os.Process;
-import android.util.Log;
 
 public class Logger implements Runnable {
 
@@ -47,7 +47,7 @@ public class Logger implements Runnable {
 	}
 
 	private final Thread mThread;
-	private final LinkedBlockingQueue<LogEntry> mLogs = new LinkedBlockingQueue<LogEntry>();
+	private final LinkedBlockingQueue<LogEntry> mLogs = new LinkedBlockingQueue<>();
 
 	private Logger() {
 		mThread = new Thread(this);
@@ -79,7 +79,7 @@ public class Logger implements Runnable {
 	}
 
 	private void write(LogEntry log) {
-		FileOutputStream fos = null;
+		FileOutputStream fos;
 		try {
 			fos = new FileOutputStream(LOG_FILE, true);
 		} catch (FileNotFoundException e) {
@@ -115,7 +115,7 @@ public class Logger implements Runnable {
 
 		private final String code;
 
-		private Type(String code) {
+		Type(String code) {
 			this.code = code;
 		}
 	}

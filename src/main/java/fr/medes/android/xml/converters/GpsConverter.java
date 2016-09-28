@@ -1,12 +1,13 @@
 package fr.medes.android.xml.converters;
 
-import java.io.IOException;
+import android.location.Location;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlSerializer;
 
-import android.location.Location;
+import java.io.IOException;
+
 import fr.medes.android.util.FormatHelper;
 
 public class GpsConverter extends AbstractFieldConverter {
@@ -32,8 +33,8 @@ public class GpsConverter extends AbstractFieldConverter {
 		}
 		if (lat != null && lon != null) {
 			Location l = new Location("gps");
-			l.setLatitude(lat.doubleValue());
-			l.setLongitude(lon.doubleValue());
+			l.setLatitude(lat);
+			l.setLongitude(lon);
 			return l;
 		}
 		return null;

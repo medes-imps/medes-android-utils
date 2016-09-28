@@ -2,14 +2,14 @@ package fr.medes.android.util.field;
 
 import android.content.Context;
 import android.content.res.Resources;
+
 import fr.medes.android.util.Arrays;
 import fr.medes.android.util.FormatHelper;
 
 /**
  * Contains static methods to manipulate enumeration field values.
- * 
+ *
  * @author MEDES-IMPS
- * 
  */
 public class EnumHelper {
 
@@ -20,7 +20,7 @@ public class EnumHelper {
 
 	/**
 	 * The separator for enumerate fields.
-	 * 
+	 *
 	 * @see {@link #separatorChar}
 	 */
 	public static final String separator = String.valueOf(separatorChar);
@@ -28,10 +28,10 @@ public class EnumHelper {
 	/**
 	 * Give a string representation of a boolean array representing checked integers values in an integer array. The
 	 * respective selected integer values are concatenated into a string.
-	 * 
-	 * @param items The possible integer values.
+	 *
+	 * @param items  The possible integer values.
 	 * @param values Specifies which items are checked. It should be null in which case no items are checked. If non
-	 *        null it must be exactly the same length as the array of integers.
+	 *               null it must be exactly the same length as the array of integers.
 	 * @return A concatenation of selected integer values or {@code "-1"} in case no items were checked.
 	 */
 	public static String convert(int[] items, boolean[] values) {
@@ -59,10 +59,10 @@ public class EnumHelper {
 	/**
 	 * Give a string representation of a boolean array representing checked integers values in the integer array
 	 * associated with a particular resource ID. The respective selected integer values are concatenated into a string.
-	 * 
+	 *
 	 * @param context The current context of the application.
 	 * @param itemsId The resource identifier of the integer array. The value 0 is an invalid identifier
-	 * @param values Specifies which items are checked.
+	 * @param values  Specifies which items are checked.
 	 * @return A concatenation of selected integer values or {@code "-1"} in case no items were checked.
 	 * @see {@link #convert(int[], boolean[])}
 	 */
@@ -73,10 +73,10 @@ public class EnumHelper {
 	/**
 	 * Give a string representation of a boolean array representing checked string values in an integer array. The
 	 * respective selected string values are concatenated into a string.
-	 * 
-	 * @param items The possible string values.
+	 *
+	 * @param items  The possible string values.
 	 * @param values Specifies which items are checked. It should be null in which case no items are checked. If non
-	 *        null it must be exactly the same length as the array of items.
+	 *               null it must be exactly the same length as the array of items.
 	 * @return A concatenation of selected string values or {@code null} in case no items were checked.
 	 */
 	public static String convert(String[] items, boolean[] values) {
@@ -104,9 +104,9 @@ public class EnumHelper {
 
 	/**
 	 * Convert a string representing a list of selected integers from an integer array to an array of checked items.
-	 * 
+	 *
 	 * @param items The possible integer values.
-	 * @param str The selected integers string representation.
+	 * @param str   The selected integers string representation.
 	 * @return The checked items.
 	 */
 	public static boolean[] parse(int[] items, String str) {
@@ -127,10 +127,10 @@ public class EnumHelper {
 
 	/**
 	 * Convert a string representing a list of selected integers from an integer array to an array of checked items.
-	 * 
+	 *
 	 * @param context The current context of the application.
 	 * @param itemsId The resource identifier of the integer array. The value 0 is an invalid identifier
-	 * @param str The selected integers string representation.
+	 * @param str     The selected integers string representation.
 	 * @return The checked items.
 	 */
 	public static boolean[] parse(Context context, int itemsId, String str) {
@@ -139,9 +139,9 @@ public class EnumHelper {
 
 	/**
 	 * Convert a string representing a list of selected strings from an string array to an array of checked items.
-	 * 
+	 *
 	 * @param items The possible string values.
-	 * @param str The selected string values representation.
+	 * @param str   The selected string values representation.
 	 * @return The checked items.
 	 */
 	public static boolean[] parse(String[] items, String str) {
@@ -159,23 +159,23 @@ public class EnumHelper {
 
 	/**
 	 * Gives the string representation of selected element in a single selection enumeration.
-	 * 
-	 * @param items The string representation of the elements.
+	 *
+	 * @param items       The string representation of the elements.
 	 * @param itemsValues The mapping array between position and stored values.
-	 * @param value The selected value.
+	 * @param value       The selected value.
 	 * @return The string representation of the selected value.
 	 */
 	public static String displayEnumSingle(String[] items, int[] itemsValues, int value) {
-		return items[Arrays.find(itemsValues, value)].toString();
+		return items[Arrays.find(itemsValues, value)];
 	}
 
 	/**
 	 * Gives the string representation of selected element in a single selection enumeration.
-	 * 
-	 * @param context The current context of the application.
-	 * @param itemsId The resource identifier of the elements string representation array.
+	 *
+	 * @param context       The current context of the application.
+	 * @param itemsId       The resource identifier of the elements string representation array.
 	 * @param itemsValuesId The resource identifier of the mapping array.
-	 * @param value The selected value.
+	 * @param value         The selected value.
 	 * @return The string representation of the selected value.
 	 * @see {@link #displayEnumSingle(String[], int[], int)}
 	 */
@@ -188,7 +188,7 @@ public class EnumHelper {
 
 	/**
 	 * Gives the string representation of the checked elements in a multiple selection enumeration.
-	 * 
+	 *
 	 * @param items The string representation of the elements.
 	 * @param value The checked items.
 	 * @return The string representation of the checked items.
@@ -211,10 +211,10 @@ public class EnumHelper {
 
 	/**
 	 * Gives the string representation of the checked elements in a multiple selection enumeration.
-	 * 
+	 *
 	 * @param context The current context of the application.
 	 * @param itemsId The resource identifier of the elements string representation array.
-	 * @param value The checked items.
+	 * @param value   The checked items.
 	 * @return The string representation of the checked items.
 	 * @see {@link #displayEnumMulti(String[], boolean[])}
 	 */

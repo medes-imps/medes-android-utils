@@ -8,9 +8,9 @@ import java.util.Set;
 public class FieldMapper implements Mapper {
 
 	private Mapper mapper;
-	private Map<String, String> aliasToFieldMap = new HashMap<String, String>();
-	private Map<String, String> fieldToAliasMap = new HashMap<String, String>();
-	private Set<String> fieldsToOmit = new HashSet<String>();
+	private Map<String, String> aliasToFieldMap = new HashMap<>();
+	private Map<String, String> fieldToAliasMap = new HashMap<>();
+	private Set<String> fieldsToOmit = new HashSet<>();
 
 	public FieldMapper(Mapper mapper) {
 		this.mapper = mapper;

@@ -11,13 +11,13 @@ import fr.medes.android.xml.annotation.XmlOmitField;
 
 public class ClassMapper implements Mapper {
 
-	private Map<String, Class<?>> aliasToClassMap = new HashMap<String, Class<?>>();
-	private Map<Class<?>, String> classToAliasMap = new HashMap<Class<?>, String>();
-	private Map<Class<?>, Mapper> classToMapperMap = new HashMap<Class<?>, Mapper>();
+	private Map<String, Class<?>> aliasToClassMap = new HashMap<>();
+	private Map<Class<?>, String> classToAliasMap = new HashMap<>();
+	private Map<Class<?>, Mapper> classToMapperMap = new HashMap<>();
 
 	/**
 	 * Add a {@link Class} and its serialized representation to this mapper.
-	 * 
+	 *
 	 * @param name The serialized representation.
 	 * @param type The Class represented.
 	 */

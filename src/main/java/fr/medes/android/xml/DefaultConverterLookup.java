@@ -8,7 +8,7 @@ import fr.medes.android.xml.converters.ConverterLookup;
 
 public class DefaultConverterLookup implements ConverterLookup {
 
-	protected final Set<Converter> converters = new HashSet<Converter>();
+	protected final Set<Converter> converters = new HashSet<>();
 
 	public DefaultConverterLookup() {
 	}

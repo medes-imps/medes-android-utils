@@ -7,20 +7,18 @@ import android.os.AsyncTask;
  * changes a task is still running but the UI is changing. This class allows to attach and detach callback easily from
  * an {@link AsyncTask}.
  * <p/>
- * When attaching a callback to this task, if the method {@link Callback#onAttachedToTask(BaseAsyncTask)} is called
+ * When attaching a callback to this task, if the method {@link Callback#onAttachedToTask(Status, Object)} is called
  * allowing the user to update his UI given the task status and retrieving the result if the
  * {@link BaseAsyncTask#onPostExecute(Object)} call was lost on configuration change by calling the
  * {@link BaseAsyncTask#getResult()}.
  * <p/>
  * This basically proxies all the UI callbacks.
  * <p/>
- * 
- * @author Medes-IMPS
- * 
+ *
  * @param <Params>
  * @param <Progress>
  * @param <Result>
- * 
+ * @author Medes-IMPS
  */
 public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<Params, Progress, Result> {
 
@@ -29,7 +27,7 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
 
 	/**
 	 * Register a callback for this task.
-	 * 
+	 *
 	 * @param callback The callback to register
 	 */
 	public void setCallback(Callback<Params, Progress, Result> callback) {
@@ -41,7 +39,7 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
 
 	/**
 	 * If the task is finished there should be a result in there. If the task is running the result is {@code null}.
-	 * 
+	 *
 	 * @return The result
 	 */
 	public Result getResult() {
@@ -61,7 +59,7 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
 		if (callback != null) {
 			callback.onPostExecute(result);
 		}
-	};
+	}
 
 	@Override
 	protected void onPreExecute() {
@@ -75,52 +73,51 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
 		if (callback != null) {
 			callback.onProgressUpdate(values);
 		}
-	};
+	}
 
 	/**
 	 * Callback for an {@link AsyncTask}. Basically allows to proxy all the UI calls made by an {@link AsyncTask} in a
 	 * callback.
-	 * 
-	 * @author Medes-IMPS
-	 * 
+	 *
 	 * @param <Params>
 	 * @param <Progress>
 	 * @param <Result>
+	 * @author Medes-IMPS
 	 */
-	public static interface Callback<Params, Progress, Result> {
+	public interface Callback<Params, Progress, Result> {
 
 		/**
 		 * Called when a callback is attached to the task. Useful when a manager is taking care of registering and
 		 * unregistering the callback for you.
-		 * 
+		 *
 		 * @param status The status of the task
 		 * @param result The result if any
 		 */
-		public void onAttachedToTask(Status status, Result result);
+		void onAttachedToTask(Status status, Result result);
 
 		/**
 		 * Called when the task is cancelled.
 		 */
-		public void onCancelled();
+		void onCancelled();
 
 		/**
 		 * Called when the execution of task is finished and gives the resul back.
-		 * 
+		 *
 		 * @param result The result of the task
 		 */
-		public void onPostExecute(Result result);
+		void onPostExecute(Result result);
 
 		/**
 		 * Called before running the task.
 		 */
-		public void onPreExecute();
+		void onPreExecute();
 
 		/**
 		 * Called each time the task wants to make contribution to the UI thread.
-		 * 
+		 *
 		 * @param values The progress values
 		 */
-		public void onProgressUpdate(Progress... values);
+		void onProgressUpdate(Progress... values);
 
 	}
 

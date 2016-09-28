@@ -1,7 +1,5 @@
 package fr.medes.android.widget;
 
-import java.util.List;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
+
+import java.util.List;
 
 /**
  * An easy adapter to map static data to group and child views defined in an XML file. You can separately specify the
@@ -225,7 +225,7 @@ public class ArrayExpandableListAdapter<Group, Child> extends BaseExpandableList
 	 * You should use this class to bind values from the lists to views that are not directly supported by
 	 * ArrayExpandableListAdapter or to change the way binding occurs for views supported by ArrayExpandableListAdapter.
 	 */
-	public static interface ViewBinder<Group, Child> {
+	public interface ViewBinder<Group, Child> {
 		/**
 		 * Binds the list group item to the specified view.
 		 * 

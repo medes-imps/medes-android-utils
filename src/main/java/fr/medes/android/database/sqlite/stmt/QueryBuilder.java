@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -162,7 +163,7 @@ public class QueryBuilder extends StatementBuilder {
 	 * @param rawSql The raw SQL order by clause. This should not include the "ORDER BY".
 	 */
 	public QueryBuilder orderByRaw(String rawSql) {
-		addOrderBy(new OrderBy(rawSql, (Object[]) null));
+		addOrderBy(new OrderBy(rawSql, null));
 		return this;
 	}
 
@@ -267,7 +268,7 @@ public class QueryBuilder extends StatementBuilder {
 	 * used to combine the WHERE statements.
 	 */
 	public QueryBuilder join(String localColumnName, String joinedColumnName, QueryBuilder joinedQueryBuilder,
-							 JoinType type, JoinWhereOperation operation) {
+	                         JoinType type, JoinWhereOperation operation) {
 		addJoinInfo(type, localColumnName, joinedColumnName, joinedQueryBuilder, operation);
 		return this;
 	}
@@ -278,7 +279,7 @@ public class QueryBuilder extends StatementBuilder {
 	 * @return A Cursor object, which is positioned before the first entry.
 	 */
 	public <T extends Cursor> T query() {
-		List<Object> args = new ArrayList<Object>();
+		List<Object> args = new ArrayList<>();
 		String sql = buildStatementString(args);
 		String[] stringArray = args.toArray(new String[args.size()]);
 		return (T) helper.getReadableDatabase().rawQueryWithFactory(factory, sql, stringArray, null);
@@ -291,7 +292,7 @@ public class QueryBuilder extends StatementBuilder {
 	 * @return The result of the query.
 	 */
 	public long queryForLong() {
-		List<Object> args = new ArrayList<Object>();
+		List<Object> args = new ArrayList<>();
 		String sql = buildStatementString(args);
 		String[] stringArray = args.toArray(new String[args.size()]);
 		Cursor cursor = helper.getReadableDatabase().rawQuery(sql, stringArray);
@@ -309,7 +310,7 @@ public class QueryBuilder extends StatementBuilder {
 	 * @return The result of the query.
 	 */
 	public String queryForString() {
-		List<Object> args = new ArrayList<Object>();
+		List<Object> args = new ArrayList<>();
 		String sql = buildStatementString(args);
 		String[] stringArray = args.toArray(new String[args.size()]);
 		Cursor cursor = helper.getReadableDatabase().rawQuery(sql, stringArray);
@@ -331,7 +332,7 @@ public class QueryBuilder extends StatementBuilder {
 	public int update(ContentValues values) {
 		if (where != null) {
 			StringBuilder sb = new StringBuilder();
-			List<Object> args = new ArrayList<Object>();
+			List<Object> args = new ArrayList<>();
 			where.appendSql(null, sb, args);
 			return helper.getWritableDatabase().update(tableName, values, sb.toString(),
 					args.toArray(new String[args.size()]));
@@ -349,7 +350,7 @@ public class QueryBuilder extends StatementBuilder {
 	public int delete() {
 		if (where != null) {
 			StringBuilder sb = new StringBuilder();
-			List<Object> args = new ArrayList<Object>();
+			List<Object> args = new ArrayList<>();
 			where.appendSql(null, sb, args);
 			return helper.getWritableDatabase().delete(tableName, sb.toString(), args.toArray(new String[args.size()]));
 		} else {
@@ -463,14 +464,14 @@ public class QueryBuilder extends StatementBuilder {
 
 	private void addOrderBy(OrderBy orderBy) {
 		if (orderByList == null) {
-			orderByList = new ArrayList<OrderBy>();
+			orderByList = new ArrayList<>();
 		}
 		orderByList.add(orderBy);
 	}
 
 	private void addGroupBy(ColumnNameOrRawSql groupBy) {
 		if (groupByList == null) {
-			groupByList = new ArrayList<ColumnNameOrRawSql>();
+			groupByList = new ArrayList<>();
 		}
 		groupByList.add(groupBy);
 		selectIdColumn = false;
@@ -489,12 +490,12 @@ public class QueryBuilder extends StatementBuilder {
 	 * Add join info to the query. This can be called multiple times to join with more than one table.
 	 */
 	private void addJoinInfo(JoinType type, String localColumnName, String joinedColumnName,
-							 QueryBuilder joinedQueryBuilder, JoinWhereOperation operation) {
+	                         QueryBuilder joinedQueryBuilder, JoinWhereOperation operation) {
 		JoinInfo joinInfo = new JoinInfo(type, joinedQueryBuilder, operation);
 		joinInfo.localField = localColumnName;
 		joinInfo.remoteField = joinedColumnName;
 		if (joinList == null) {
-			joinList = new ArrayList<JoinInfo>();
+			joinList = new ArrayList<>();
 		}
 		joinList.add(joinInfo);
 	}
@@ -505,7 +506,7 @@ public class QueryBuilder extends StatementBuilder {
 
 	private void addSelectToList(ColumnNameOrRawSql select) {
 		if (selectList == null) {
-			selectList = new ArrayList<ColumnNameOrRawSql>();
+			selectList = new ArrayList<>();
 		}
 		selectList.add(select);
 	}
@@ -545,12 +546,7 @@ public class QueryBuilder extends StatementBuilder {
 		}
 
 		boolean first = true;
-		boolean hasId;
-		if (isInnerQuery) {
-			hasId = true;
-		} else {
-			hasId = false;
-		}
+		boolean hasId = isInnerQuery;
 		for (ColumnNameOrRawSql select : selectList) {
 			if (select.getRawSql() != null) {
 				// if any are raw-sql then that's our type
@@ -687,9 +683,7 @@ public class QueryBuilder extends StatementBuilder {
 			} else {
 				sb.append(orderBy.getRawSql());
 				if (orderBy.getOrderByArgs() != null) {
-					for (Object arg : orderBy.getOrderByArgs()) {
-						argList.add(arg);
-					}
+					argList.addAll(Arrays.asList(orderBy.getOrderByArgs()));
 				}
 			}
 		}
@@ -775,7 +769,7 @@ public class QueryBuilder extends StatementBuilder {
 
 		private String sql;
 
-		private JoinType(String sql) {
+		JoinType(String sql) {
 			this.sql = sql;
 		}
 	}
@@ -798,7 +792,7 @@ public class QueryBuilder extends StatementBuilder {
 
 		private WhereOperation whereOperation;
 
-		private JoinWhereOperation(WhereOperation whereOperation) {
+		JoinWhereOperation(WhereOperation whereOperation) {
 			this.whereOperation = whereOperation;
 		}
 	}

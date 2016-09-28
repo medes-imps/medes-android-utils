@@ -2,7 +2,6 @@ package fr.medes.android.util.content;
 
 import android.content.ContentResolver;
 import android.net.Uri;
-import android.provider.SyncStateContract.Constants;
 
 /**
  * Utility methods useful for working with content {@link android.net.Uri}s, those with a "content" scheme.
@@ -10,10 +9,10 @@ import android.provider.SyncStateContract.Constants;
 public class ContentUrisUtils {
 	/**
 	 * Converts the last path segment to a long.
-	 * 
-	 * <p>
+	 * <p/>
+	 * <p/>
 	 * This supports a common convention for content URIs where an ID is stored in the last segment.
-	 * 
+	 *
 	 * @return the the last segment or null if the path is empty
 	 */
 	public static String parseId(Uri contentUri) {
@@ -25,10 +24,9 @@ public class ContentUrisUtils {
 
 	/**
 	 * Appends the given ID to the end of the path.
-	 * 
+	 *
 	 * @param builder to append the ID to
-	 * @param id to append
-	 * 
+	 * @param id      to append
 	 * @return the given builder
 	 */
 	public static Uri.Builder appendId(Uri.Builder builder, String id) {
@@ -37,10 +35,9 @@ public class ContentUrisUtils {
 
 	/**
 	 * Appends the given ID to the end of the path.
-	 * 
+	 *
 	 * @param contentUri to start with
-	 * @param id to append
-	 * 
+	 * @param id         to append
 	 * @return a new URI with the given ID appended to the end of the path
 	 */
 	public static Uri withAppendedId(Uri contentUri, String id) {
@@ -48,11 +45,11 @@ public class ContentUrisUtils {
 	}
 
 	/**
-	 * Creates an {@link Uri} whith scheme {@link ContentResolver#SCHEME_CONTENT}, authority {@link Constants#AUTHORITY}
-	 * and the given path.
-	 * 
+	 * Creates an {@link Uri} whith scheme {@link ContentResolver#SCHEME_CONTENT} and given authority
+	 * and path.
+	 *
 	 * @param authority The authority.
-	 * @param path The path to add at the end of the uri.
+	 * @param path      The path to add at the end of the uri.
 	 * @return The built uri, should be something like {@code content://<authority>/<path>}.
 	 */
 	public static Uri buildUriForFragment(String authority, String path) {

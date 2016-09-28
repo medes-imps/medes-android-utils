@@ -10,9 +10,8 @@ import fr.medes.android.xml.converters.Converter;
 
 /**
  * Annotation to declare a converter.
- * 
+ *
  * @author Medes-IMPS
- * 
  */
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
@@ -21,17 +20,17 @@ public @interface XmlConverter {
 
 	/**
 	 * The converter for the field value.
-	 * 
+	 *
 	 * @return the converter.
 	 */
-	public Class<? extends Converter> value();
+	Class<? extends Converter> value();
 
 	/**
 	 * Provide integer as parameter for the converter.
-	 * 
+	 *
 	 * @return the integer.
-	 * @see Converter#setInteger(integer)
+	 * @see Converter#setInteger(int)
 	 */
-	public int integer() default 0;
+	int integer() default 0;
 
 }

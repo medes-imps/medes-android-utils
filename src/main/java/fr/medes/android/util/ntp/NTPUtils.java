@@ -1,16 +1,15 @@
 package fr.medes.android.util.ntp;
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.SocketException;
-import java.net.UnknownHostException;
-import java.text.NumberFormat;
-
 import org.apache.commons.net.ntp.NTPUDPClient;
 import org.apache.commons.net.ntp.NtpUtils;
 import org.apache.commons.net.ntp.NtpV3Packet;
 import org.apache.commons.net.ntp.TimeInfo;
 import org.apache.commons.net.ntp.TimeStamp;
+
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.text.NumberFormat;
 
 import fr.medes.android.util.Logger;
 
@@ -20,10 +19,10 @@ import fr.medes.android.util.Logger;
  * prints it to standard output along with the fields from the NTP message header (e.g. stratum level, reference id,
  * poll interval, root delay, mode, ...) See <A HREF="ftp://ftp.rfc-editor.org/in-notes/rfc868.txt"> the spec </A> for
  * details.
- * <p>
+ * <p/>
  * Usage: NTPClient <hostname-or-address-list> <br>
  * Example: NTPClient clock.psu.edu
- * 
+ *
  * @author Jason Mathews, MITRE Corp
  ***/
 public class NTPUtils {
@@ -39,7 +38,7 @@ public class NTPUtils {
 
 	/**
 	 * Process <code>TimeInfo</code> object and print its details.
-	 * 
+	 *
 	 * @param info <code>TimeInfo</code> object.
 	 */
 	public static String processResponse(TimeInfo info) {
@@ -141,10 +140,11 @@ public class NTPUtils {
 
 	/**
 	 * Queries NTP server to get details
-	 * 
+	 *
 	 * @param ntpServerHostname
+	 * @throws IOException
 	 */
-	public static TimeInfo detailedQuery(String ntpServerHostname) throws IOException, SocketException {
+	public static TimeInfo detailedQuery(String ntpServerHostname) throws IOException {
 		NTPUDPClient client = new NTPUDPClient();
 		// We want to timeout if a response takes longer than 10 seconds
 		client.setDefaultTimeout(TIMEOUT);
@@ -165,12 +165,12 @@ public class NTPUtils {
 
 	/**
 	 * Queries NTP server using UDP to get offset
-	 * 
+	 *
 	 * @param ntpServerHostname
 	 * @return offset
-	 * @throws IOException , SocketException
+	 * @throws IOException
 	 */
-	public static long query(String ntpServerHostname) throws IOException, SocketException {
+	public static long query(String ntpServerHostname) throws IOException {
 		NTPUDPClient client = new NTPUDPClient();
 		// We want to timeout if a response takes longer than 10 seconds
 		client.setDefaultTimeout(TIMEOUT);
