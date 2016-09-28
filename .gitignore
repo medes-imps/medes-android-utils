@@ -4,3 +4,7 @@
 /.settings
 /medes-android_lib.iml
 /build
+.gradle/
+.idea/
+local.properties
+medes-android-utils.iml
