@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,7 +51,7 @@ public class DateTimePickerDialog extends AlertDialog implements OnClickListener
 		 * @param minute      The minute that was set.
 		 */
 		void onDateTimeSet(DatePicker datePicker, TimePicker timePicker, int year, int monthOfYear, int dayOfMonth,
-						   int hourOfDay, int minute);
+		                   int hourOfDay, int minute);
 	}
 
 	/**
@@ -64,7 +65,7 @@ public class DateTimePickerDialog extends AlertDialog implements OnClickListener
 	 * @param is24HourView Whether this is a 24 hour view, or AM/PM.
 	 */
 	public DateTimePickerDialog(Context context, OnDateTimeSetListener listener, int year, int monthOfYear, int dayOfMonth,
-								int hourOfDay, int minute, boolean is24HourView) {
+	                            int hourOfDay, int minute, boolean is24HourView) {
 		this(context, 0, listener, year, monthOfYear, dayOfMonth, hourOfDay, minute, is24HourView);
 	}
 
@@ -91,7 +92,7 @@ public class DateTimePickerDialog extends AlertDialog implements OnClickListener
 	 * @param is24HourView Whether this is a 24 hour view, or AM/PM.
 	 */
 	public DateTimePickerDialog(Context context, int theme, OnDateTimeSetListener listener, int year, int monthOfYear,
-								int dayOfMonth, int hourOfDay, int minute, boolean is24HourView) {
+	                            int dayOfMonth, int hourOfDay, int minute, boolean is24HourView) {
 		super(context, resolveDialogTheme(context, theme));
 
 		mDateTimeSetListener = listener;
@@ -159,7 +160,7 @@ public class DateTimePickerDialog extends AlertDialog implements OnClickListener
 	}
 
 	@Override
-	public Bundle onSaveInstanceState() {
+	public @NonNull Bundle onSaveInstanceState() {
 		Bundle state = super.onSaveInstanceState();
 		state.putInt(YEAR, mDatePicker.getYear());
 		state.putInt(MONTH, mDatePicker.getMonth());
@@ -171,7 +172,7 @@ public class DateTimePickerDialog extends AlertDialog implements OnClickListener
 	}
 
 	@Override
-	public void onRestoreInstanceState(Bundle savedInstanceState) {
+	public void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
 		super.onRestoreInstanceState(savedInstanceState);
 		final int year = savedInstanceState.getInt(YEAR);
 		final int month = savedInstanceState.getInt(MONTH);
