@@ -5,4 +5,8 @@
     <string name="aml__minutes_unit" translatable="false">\'</string>
     <string name="aml__seconds_unit" translatable="false">&quot;</string>
 
+    <!-- Preferences -->
+    <string name="aml__pref_update_server" translatable="false">pref_update_server</string>
+    <string name="aml__pref_update_available" translatable="false">pref_update_available</string>
+
 </resources>

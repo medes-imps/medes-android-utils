@@ -121,4 +121,28 @@ public abstract class BaseAsyncTask<Params, Progress, Result> extends AsyncTask<
 
 	}
 
+	public static class BaseCallback<Params, Progress, Result> implements Callback<Params, Progress, Result> {
+
+		@Override
+		public void onAttachedToTask(BaseAsyncTask.Status status, Result result) {
+		}
+
+		@Override
+		public void onCancelled() {
+		}
+
+		@Override
+		public void onPostExecute(Result result) {
+		}
+
+		@Override
+		public void onPreExecute() {
+		}
+
+		@Override
+		public void onProgressUpdate(Progress... values) {
+		}
+
+	}
+
 }

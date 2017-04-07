@@ -39,4 +39,16 @@
         <item>Non</item>
     </string-array>
 
+    <!-- Preferences -->
+    <string name="aml__preferences_update">Mise à jour</string>
+    <string name="aml__preferences_update_server">Serveur de mises à jour</string>
+    <string name="aml__preferences_update_available">Mises à jour</string>
+    <string name="aml__preferences_update_available_enabled">Mises à jour disponibles</string>
+    <string name="aml__preferences_update_available_disabled">L\'application est à jour</string>
+
+    <!-- Update dialog -->
+    <string name="aml__update_download_title">Chargement&#8230;</string>
+    <string name="aml__update_download_message">Chargement des mises à jour</string>
+    <string name="aml__update_download_format" formatted="false">%1d / %2d KB</string>
+
 </resources>

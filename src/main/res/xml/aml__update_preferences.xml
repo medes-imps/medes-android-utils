@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceCategory xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:title="@string/aml__preferences_update">
+
+    <fr.medes.android.preference.MyEditTextPreference
+        android:inputType="textUri"
+        android:key="@string/aml__pref_update_server"
+        android:title="@string/aml__preferences_update_server"/>
+
+    <Preference
+        android:enabled="false"
+        android:key="@string/aml__pref_update_available"
+        android:persistent="false"
+        android:summary="@string/aml__preferences_update_available_disabled"
+        android:title="@string/aml__preferences_update_available"/>
+
+</PreferenceCategory>

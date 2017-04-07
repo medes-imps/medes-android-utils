@@ -39,4 +39,16 @@
         <item>No</item>
     </string-array>
 
+    <!-- Preferences -->
+    <string name="aml__preferences_update">Update parameters</string>
+    <string name="aml__preferences_update_server">Update server</string>
+    <string name="aml__preferences_update_available">Application updates</string>
+    <string name="aml__preferences_update_available_enabled">Update available</string>
+    <string name="aml__preferences_update_available_disabled">The application is up to date</string>
+
+    <!-- Update dialog -->
+    <string name="aml__update_download_title">Downloading&#8230;</string>
+    <string name="aml__update_download_message">Downloading update</string>
+    <string name="aml__update_download_format" formatted="false">%1d / %2d KB</string>
+
 </resources>
