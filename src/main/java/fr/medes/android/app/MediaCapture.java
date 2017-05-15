@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 
 import java.io.File;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import fr.medes.android.BuildConfigHelper;
 import fr.medes.android.R;
 
 public class MediaCapture extends Activity implements OnScanCompletedListener {
@@ -68,8 +70,11 @@ public class MediaCapture extends Activity implements OnScanCompletedListener {
 			return;
 		}
 
-		// Continue only if the File was successfully created
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mediaFile));
+		Uri photoURI = FileProvider.getUriForFile(this,
+				(String) BuildConfigHelper.getBuildConfigValue("AUTHORITY_FILE_PROVIDER"),
+				mediaFile);
+
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
 		startActivityForResult(intent, captureType == CAPTURE_IMAGE ? CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE : CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE);
 	}
 
@@ -124,9 +129,9 @@ public class MediaCapture extends Activity implements OnScanCompletedListener {
 
 	private File createImageFile() throws IOException {
 		// Create an image file name
-		String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmmss").format(new Date());
+		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 		String imageFileName = "JPEG_" + timeStamp;
-		File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+		File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 		return File.createTempFile(
 				imageFileName,  /* prefix */
 				".jpg",         /* suffix */
@@ -136,9 +141,9 @@ public class MediaCapture extends Activity implements OnScanCompletedListener {
 
 	private File createVideoFile() throws IOException {
 		// Create a video file name
-		String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmmss").format(new Date());
+		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 		String imageFileName = "MPEG_" + timeStamp + "_";
-		File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+		File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 		return File.createTempFile(
 				imageFileName,  /* prefix */
 				".mpg",         /* suffix */

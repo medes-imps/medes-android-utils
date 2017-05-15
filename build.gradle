@@ -6,7 +6,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.1'
+        classpath 'com.android.tools.build:gradle:2.3.2'
     }
 }
 
@@ -44,7 +44,7 @@ uploadArchives {
 
             pom.groupId = 'fr.medes'
             pom.artifactId = 'medes-android-utils'
-            pom.version = '1.0.0'
+            pom.version = '1.0.1'
 
             repository(
                     url: "${NEXUS_URL}/content/repositories/releases") {
