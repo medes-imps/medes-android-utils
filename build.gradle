@@ -38,16 +38,38 @@ dependencies {
     compile 'commons-net:commons-net:3.6'
 }
 
+// custom tasks for creating source/javadoc jars
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    destinationDir = file("../javadoc/")
+    failOnError false
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
 uploadArchives {
     repositories {
         mavenDeployer {
 
             pom.groupId = 'fr.medes'
             pom.artifactId = 'medes-android-utils'
-            pom.version = '1.0.1'
+            pom.version = '1.0.2'
 
-            repository(
-                    url: "${NEXUS_URL}/content/repositories/releases") {
+            repository(url: "${NEXUS_URL}/content/repositories/releases") {
                 authentication(userName: NEXUS_USERNAME, password: NEXUS_PASSWORD)
             }
             snapshotRepository(
