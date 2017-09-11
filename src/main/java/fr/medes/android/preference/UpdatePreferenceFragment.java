@@ -12,12 +12,14 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.preference.Preference;
 import android.text.TextUtils;
 import android.widget.Toast;
 
 import java.io.File;
 
+import fr.medes.android.BuildConfigHelper;
 import fr.medes.android.R;
 import fr.medes.android.app.ProgressDialogFragment;
 import fr.medes.android.os.BaseAsyncTask;
@@ -168,7 +170,7 @@ public class UpdatePreferenceFragment extends MyPreferenceFragmentCompat impleme
 		}
 		String server = mUpdateServer.getText();
 		String url = server + (server.endsWith("/") ? "" : "/") + "apk/" + mMarketApp.getName();
-		File dir = new File(Environment.getExternalStorageDirectory(), mMarketApp.getName());
+		File dir = new File(getContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), mMarketApp.getName());
 		mDownloadFileTask = new DownloadFileTask();
 		mDownloadFileTask.setCallback(mDownloadFileCallback);
 		mDownloadFileTask.execute(url, dir.getPath());
@@ -183,8 +185,10 @@ public class UpdatePreferenceFragment extends MyPreferenceFragmentCompat impleme
 		}
 
 		if (result != null) {
+			Uri uri = FileProvider.getUriForFile(getContext(), (String) BuildConfigHelper.getBuildConfigValue("AUTHORITY_FILE_PROVIDER"), result);
 			Intent intent = new Intent(Intent.ACTION_VIEW);
-			intent.setDataAndType(Uri.fromFile(result), "application/vnd.android.package-archive");
+			intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+			intent.setDataAndType(uri, "application/vnd.android.package-archive");
 			startActivity(intent);
 		}
 	}
