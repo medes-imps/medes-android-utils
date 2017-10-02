@@ -185,7 +185,7 @@ public class UpdatePreferenceFragment extends MyPreferenceFragmentCompat impleme
 		}
 
 		if (result != null) {
-			Uri uri = FileProvider.getUriForFile(getContext(), (String) BuildConfigHelper.getBuildConfigValue("AUTHORITY_FILE_PROVIDER"), result);
+			Uri uri = FileProvider.getUriForFile(getContext(), BuildConfigHelper.<String>getBuildConfigValue("AUTHORITY_FILE_PROVIDER"), result);
 			Intent intent = new Intent(Intent.ACTION_VIEW);
 			intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 			intent.setDataAndType(uri, "application/vnd.android.package-archive");

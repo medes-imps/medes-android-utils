@@ -6,7 +6,7 @@ public class BuildConfigHelper {
 
 	private static final Class<?> BUILD_CONFIG_CLASS = getBuildConfigClass();
 
-	public static Object getBuildConfigValue(String fieldName) {
+	public static <T> T getBuildConfigValue(String fieldName) {
 		return getDeclaredFieldValue(BUILD_CONFIG_CLASS, fieldName);
 	}
 

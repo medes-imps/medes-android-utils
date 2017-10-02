@@ -70,9 +70,7 @@ public class MediaCapture extends Activity implements OnScanCompletedListener {
 			return;
 		}
 
-		Uri photoURI = FileProvider.getUriForFile(this,
-				(String) BuildConfigHelper.getBuildConfigValue("AUTHORITY_FILE_PROVIDER"),
-				mediaFile);
+		Uri photoURI = FileProvider.getUriForFile(this, BuildConfigHelper.<String>getBuildConfigValue("AUTHORITY_FILE_PROVIDER"), mediaFile);
 
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
 		startActivityForResult(intent, captureType == CAPTURE_IMAGE ? CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE : CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE);
