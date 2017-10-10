@@ -34,7 +34,7 @@ public class UpdatePreferenceFragment extends MyPreferenceFragmentCompat impleme
 	private static final int REQUEST_PERMISSION_UPDATE_APP = 1;
 
 	private Preference mUpdateAvailable;
-	private MyEditTextPreference mUpdateServer;
+	private EditTextPreference mUpdateServer;
 
 	private CheckUpdateTask mCheckUpdateTask;
 	private DownloadFileTask mDownloadFileTask;
@@ -48,7 +48,7 @@ public class UpdatePreferenceFragment extends MyPreferenceFragmentCompat impleme
 		if (args != null && args.getBoolean(ARG_SHOULD_INFLATE, true)) {
 			setPreferencesFromResource(R.xml.aml__update_preferences, s);
 
-			mUpdateServer = (MyEditTextPreference) findPreference(R.string.aml__pref_update_server);
+//			mUpdateServer = (EditTextPreference) findPreference(R.string.aml__pref_update_server);
 			mUpdateAvailable = findPreference(R.string.aml__pref_update_available);
 		}
 
@@ -82,7 +82,6 @@ public class UpdatePreferenceFragment extends MyPreferenceFragmentCompat impleme
 	@Override
 	public boolean onPreferenceChange(Preference preference, Object newValue) {
 		if (preference == mUpdateServer) {
-			mUpdateServer.updateSummary();
 			executeCheckUpdate((String) newValue);
 			return true;
 		}
@@ -112,7 +111,7 @@ public class UpdatePreferenceFragment extends MyPreferenceFragmentCompat impleme
 	}
 
 
-	public void setPreferences(Preference updateAvailable, MyEditTextPreference updateServer) {
+	public void setPreferences(Preference updateAvailable, EditTextPreference updateServer) {
 		mUpdateAvailable = updateAvailable;
 		mUpdateServer = updateServer;
 

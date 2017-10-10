@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <PreferenceCategory xmlns:android="http://schemas.android.com/apk/res/android"
                     android:title="@string/aml__preferences_update">
 
-    <fr.medes.android.preference.MyEditTextPreference
+    <fr.medes.android.preference.EditTextPreference
         android:inputType="textUri"
         android:key="@string/aml__pref_update_server"
+        android:summary="%s"
         android:title="@string/aml__preferences_update_server"/>
 
     <Preference
