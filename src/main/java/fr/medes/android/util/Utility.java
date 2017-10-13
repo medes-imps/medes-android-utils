@@ -1,8 +1,12 @@
 package fr.medes.android.util;
 
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.text.TextUtils;
 
 import java.util.concurrent.BlockingQueue;
@@ -24,7 +28,7 @@ public class Utility {
 	public static Drawable getColorChip(int color) {
 
 		/*
-	     * We want the color chip to have a nice gradient using the color of the calendar. To do this we use a
+		 * We want the color chip to have a nice gradient using the color of the calendar. To do this we use a
 		 * GradientDrawable. The color supplied has an alpha of FF so we first do: color & 0x00FFFFFF to clear the
 		 * alpha. Then we add our alpha to it. We use 3 colors to get a step effect where it starts off very light and
 		 * quickly becomes dark and then a slow transition to be even darker.
@@ -70,4 +74,31 @@ public class Utility {
 		THREAD_POOL_EXECUTOR.execute(r);
 	}
 
+	/**
+	 * Check whether a package is installed or not.
+	 *
+	 * @param context     The current application context.
+	 * @param packageName The name of the package.
+	 * @return {@code true} if the package is installed, {@code false} otherwise.
+	 */
+	public static boolean isPackageInstalled(Context context, String packageName) {
+		try {
+			context.getPackageManager().getPackageInfo(packageName, 0);
+			return true;
+		} catch (PackageManager.NameNotFoundException e) {
+			return false;
+		}
+	}
+
+	/**
+	 * Check whether the device is connected to internet or not.
+	 *
+	 * @param context The current application context.
+	 * @return {@code true} if the device is connecteed, {@code false} otherwise.
+	 */
+	public static boolean isOnline(Context context) {
+		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo netInfo = cm.getActiveNetworkInfo();
+		return netInfo != null && netInfo.isConnectedOrConnecting();
+	}
 }
