@@ -8,7 +8,7 @@ abstract public class MyPreferenceFragmentCompat extends PreferenceFragmentCompa
 
 	public static final String ARG_SHOULD_INFLATE = "should_inflate";
 
-	public Preference findPreference(@StringRes int resId) {
-		return super.findPreference(getString(resId));
+	public <T extends Preference> T findPreference(@StringRes int resId) {
+		return (T) super.findPreference(getString(resId));
 	}
 }
